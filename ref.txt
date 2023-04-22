@@ -1,0 +1,24 @@
+react chart
+- https://react-chartjs-2.js.org/examples/doughnut-chart/
+login form
+ - https://codepen.io/Mr_Dzi/pen/WpeYNQ?editors=0110
+mqtt buffer error fix
+- https://viglucci.io/articles/how-to-polyfill-buffer-with-webpack-5
+- https://iot4beginners.com/getting-started-with-reactjs-and-mqtt-iot-dashboard/
+line webhook
+- https://medium.com/linedevth/line-bot-101-447e427d62c7
+arduino storage space
+- https://randomnerdtutorials.com/esp32-save-data-permanently-preferences/
+react login form 
+-https://mdbootstrap.com/docs/react/extended/login-form/
+elimanate circular dependencie js error
+- https://spin.atomicobject.com/2018/06/25/circular-dependencies-javascript/
+css scoping in react 
+- https://www.upbeatcode.com/react/css-scoping-in-react-everything-you-need-to-know/
+
+รายละเอียด
+- ฟอร์ม signup ใช้radio boxเลือก
+- login แจ้งเตือนให้ใส่ email
+- สี backgroud css 
+- hash password
+- register validation
