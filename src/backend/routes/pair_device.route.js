@@ -22,7 +22,7 @@ router.route('/create_pair').post((req, res) => {
 
                 pair_deviceSchema.findOne({ p_id: req.body.p_id},(err,data2) =>{
                     if(err) throw err;
-                    if(data2 === null) { console.log("first"); 
+                    if(data2 === null) {
                     temp.d_status = "1"
                     pair_deviceSchema.create(temp, (error, data) => {
                         if(error) { 
@@ -57,14 +57,12 @@ router.route('/create_pair').post((req, res) => {
 router.route('/delete_pair').post((req, res) => {
     const filter = { p_id:req.body.p_id, device_token: req.body.device_token }
     const update = { d_status: "0"}
-    console.log(filter.p_id + " ddd in " +filter.device_token )
     pair_deviceSchema.findOneAndRemove(filter , (error,data) => {
         if(error) {
             return next(error);
             console.log(error);
         } else {
             res.json(data);
-            console.log('remove successfully');
         }
     })
 });

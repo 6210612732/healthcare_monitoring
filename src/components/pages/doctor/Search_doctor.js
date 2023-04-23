@@ -27,7 +27,8 @@ const Search_doctor = () => {
   const cookies = new Cookies();
   const uid = cookies.get('id')
   const [user_data, setuser_data] = useState([]);
-  const [user_data2, setuser_data2] = useState([]);
+  const [mode, setmode] = useState("");
+  const [search, setsearch] = useState("");
   const [req_ls, setreq_ls]= useState([]);
   const [cc, setcc] = useState(2);
   let dev_temp = []
@@ -35,27 +36,116 @@ const Search_doctor = () => {
 
   useEffect(() => {
     if(cc>0){
-      axios.get('http://localhost:8082/api/following/search_request').then(res => {
+      const PObject2 = { d_id: uid, mode: mode, search: search}
+      axios.post('http://localhost:8082/api/following/search_request',PObject2).then(res => {
+      //axios.get('http://localhost:8082/api/following/search_request/'+uid).then(res => {
       setuser_data(res.data)
-    })}
+    })
     const dd = cc 
     setcc(dd-1)
     console.log(cc)
-  },[]);
-  console.log(user_data)
+    }
+  },[cc]);
+  console.log(mode+"  k  "+search)
+
+  function search_button(){
+    const PObject2 = { d_id: uid, mode: mode, search: search}
+      axios.post('http://localhost:8082/api/following/search_request',PObject2).then(res => {
+      //axios.get('http://localhost:8082/api/following/search_request/'+uid).then(res => {
+      setuser_data(res.data)
+      setcc(0)
+    })
+  }
 
   function request_follow(p_id){
     const PObject = { p_id: p_id ,d_id: uid}
     axios.post('http://localhost:8082/api/following/create_request',PObject).then(res => {
+    //console.log(res.data)
     setcc(2)
     })
   }
- function create_button(itemstatus,itemid){
-    let check = 0
-    if(itemstatus == 0){ return(<div><Button variant="outline-primary" onclick={request_follow(itemid)}>request</Button>{' '}</div>)    }
-    else if(itemstatus == 1){ return(<div>waiting</div>) }
-    else{return(<div>accept</div>)}
-  }
+  function create_bar(index){
+    let item = user_data[index]
+    if(item.bt_status == '2'){
+       return (
+         <CTableRow v-for="item in tableItems" color="success" key={index} onClick={()=>{window.location.assign('info?cid='+item._id)}} >
+                         <CTableDataCell className="text-center">
+                           {index+1}
+                         </CTableDataCell>
+                         <CTableDataCell className="text-center">
+                           <div>{item.detail[0].name_sur}</div>
+                           <div className="small text-medium-emphasis">
+                             <span>{item.username}</span> | age : {item.detail[0].age}
+                           </div>
+                         </CTableDataCell>
+                         <CTableDataCell className="text-center">
+                         {item.detail[0].gender}
+                         </CTableDataCell>
+                         <CTableDataCell className="text-center">
+                         {item.detail[0].kg_cm}
+                         </CTableDataCell>
+                         <CTableDataCell className="text-center">
+                         {item.detail[0].description}
+                         </CTableDataCell>
+                         <CTableDataCell className="text-center">
+                           following
+                         </CTableDataCell>
+                       </CTableRow>
+       )}
+       else if(item.bt_status == '1'){
+        return (
+          <CTableRow v-for="item in tableItems" color="Light" key={index}  >
+                          <CTableDataCell className="text-center">
+                            {index+1}
+                          </CTableDataCell>
+                          <CTableDataCell className="text-center">
+                            <div>{item.detail[0].name_sur}</div>
+                            <div className="small text-medium-emphasis">
+                              <span>{item.username}</span> | age : {item.detail[0].age}
+                            </div>
+                          </CTableDataCell>
+                          <CTableDataCell className="text-center">
+                          {item.detail[0].gender}
+                          </CTableDataCell>
+                          <CTableDataCell className="text-center">
+                          {item.detail[0].kg_cm}
+                          </CTableDataCell>
+                          <CTableDataCell className="text-center">
+                          {item.detail[0].description}
+                          </CTableDataCell>
+                          <CTableDataCell className="text-center">
+                            waiting
+                          </CTableDataCell>
+                        </CTableRow>
+        )}
+        else if(item.bt_status == '0'){
+          return (
+            <CTableRow v-for="item in tableItems"  key={index}  >
+                            <CTableDataCell className="text-center">
+                              {index+1}
+                            </CTableDataCell>
+                            <CTableDataCell className="text-center">
+                              <div>{item.detail[0].name_sur}</div>
+                              <div className="small text-medium-emphasis">
+                                <span>{item.username}</span> | age : {item.detail[0].age}
+                              </div>
+                            </CTableDataCell>
+                            <CTableDataCell className="text-center">
+                            {item.detail[0].gender}
+                            </CTableDataCell>
+                            <CTableDataCell className="text-center">
+                            {item.detail[0].kg_cm}
+                            </CTableDataCell>
+                            <CTableDataCell className="text-center">
+                            {item.detail[0].description}
+                            </CTableDataCell>
+                            <CTableDataCell className="text-center">
+                            <div><Button key={index} variant="outline-primary" onClick={() => request_follow(item._id)}>request</Button></div>
+                            </CTableDataCell>
+                          </CTableRow>
+          )}
+     }
+   
 
   return (
     <div className="gg">
@@ -73,13 +163,15 @@ const Search_doctor = () => {
                   placeholder="Search"
                   className="me-2"
                   aria-label="Search"
+                  onChange={(e)=>{setsearch(e.target.value)}}
                 />
-                <Button>
+                <Button onClick={()=>search_button()}>
                   Search
                 </Button>
-                <Form.Select className='mx-5'>
-                  <option value="1" >username</option>
-                  <option value="2" >name-surname</option>
+                <Form.Select className='mx-5' onChange={(e)=>{setmode(e.target.value)}}>
+                  <option value="" >all</option>
+                  <option value="una" >search with username</option>
+                  <option value="rna" >search with name-surname</option>
                 </Form.Select>
               </Form>
             </Col>
@@ -94,47 +186,23 @@ const Search_doctor = () => {
                     </CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Patient</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Gender</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">kg/cm</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">description</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">follow</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">Kg/cm</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">Description</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">Follow</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
+                {user_data.map((item, index) => (
                 <CTableBody>
-                  {user_data.map((item, index) => (
-                    <CTableRow v-for="item in tableItems" key={index} >
-                      <CTableDataCell className="text-center">
-                        {index+1}
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <div>{item.detail[0].name_sur}</div>
-                        <div className="small text-medium-emphasis">
-                          <span>{item.username}</span> | age : {item.detail[0].age}
-                        </div>
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-
-                      {item.detail[0].gender}
-
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-
-                      {item.detail[0].kg_cm}
-
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-
-                      {item.detail[0].description}
+                  
+                    
+                    
+                    {create_bar(index)}
+                    
 
 
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        
-                       {create_button(item.status,item._id)}
-
-                      </CTableDataCell>
-                    </CTableRow>
-                  ))}
+                  
                 </CTableBody>
+                ))}
               </CTable>
 
         </div>
@@ -147,3 +215,27 @@ const Search_doctor = () => {
 export default Search_doctor
 
 
+//{create_button(item.status,item._id)}
+
+/*
+
+                      {(() => {
+                        if (item.bt_status == '0'){
+                            return (
+                              <div><Button key={index} variant="outline-primary" onClick={() => request_follow(item._id)}>request</Button></div>
+                            )
+                          }
+                        else if (item.bt_status == '1'){
+                          return (
+                            <p>waiting</p>
+                        )
+                        }
+                        else if (item.bt_status == '2'){
+                          return (
+                            <p>accept</p>
+                        )
+                        }
+                    
+                        return item.bt_status;
+                      })()}
+*/

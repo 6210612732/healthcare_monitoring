@@ -65,15 +65,7 @@ export default class Signup extends Component {
             address: this.state.address,  
             detail: [{
                 description: this.state.des,
-                name_sur: this.state.name_sur,
-                drug: this.state.drug,
-                age: this.state.drug,
-                gender: this.state.gender,
-                kg_cm: this.state.kg_cm,
-                blood_group: this.state.blood,
-                allergy: this.state.allergic, 
-                chronic_disease: this.state.chronic_disease,
-                being_treated: this.state.being_treated,
+                hospital: this.state.hospital
             }],
             status: "0",
         };

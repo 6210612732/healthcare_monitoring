@@ -11,6 +11,15 @@ let ChatRoomSchema = new Schema({
     status: {
         type: String
     },
+    last_message: {
+        type: String
+    },
+    time_last: {
+        type: String
+    },
+    side: {
+        type: String
+    },
 }, {
     collection: "chatrooms"
 })

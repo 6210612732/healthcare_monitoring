@@ -16,9 +16,14 @@ import Chat_doctor from './components/pages/doctor/Chat_doctor';
 import Chatlist_doctor from './components/pages/doctor/Chatlist_doctor';
 import Appointment_doctor from './components/pages/doctor/Appointment_doctor';
 import Search_doctor from './components/pages/doctor/Search_doctor';
+import Info_doctor from './components/pages/doctor/Info_doctor';
 // patient
 import Signup from './components/pages/patient/Signup_patient';
 import Dashboard_patient from './components/pages/patient/Dashboard_patient';
+import Search_patient from './components/pages/patient/Search_patient';
+import Chatlist_patient from './components/pages/patient/Chatlist_patient';
+import Chat_patient from './components/pages/patient/Chat_patient';
+import Info_patient from './components/pages/patient/Info_patient';
 
 import Abc from './Abc';
 import Logout from './components/pages/Logout';
@@ -53,10 +58,14 @@ function App() {
                   <Route path="/doctor/chat_list" element={<Chatlist_doctor/>} />
                   <Route path="/doctor/appointment" element={<Appointment_doctor/>} />
                   <Route path="/doctor/search" element={<Search_doctor/>} />
-
+                  <Route path="/doctor/info" element={<Info_doctor/>} />
+                  
                   <Route path="/patient/dashboard" element={<Dashboard_patient/>} />
-
-
+                  <Route path="/patient/search" element={<Search_patient/>} />
+                  <Route path="/patient/chat_list" element={<Chatlist_patient/>} />
+                  <Route path="/patient/chat" element={<Chat_patient/>} />
+                  <Route path="/patient/info" element={<Info_patient/>} />
+                  
                   
                 </Routes>
               </div>

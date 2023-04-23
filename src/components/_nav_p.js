@@ -27,20 +27,20 @@ const _nav_p = [
   },
   {
     component: CNavItem,
-    name: 'Search',
-    to: '/doctor/search',
+    name: 'Request',
+    to: '/patient/search',
     icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Chat',
-    to: '/doctor/chat',
+    to: '/patient/chat_list',
     icon: <CIcon icon={cilChatBubble} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Appointment',
-    to: '/doctor/appointment',
+    to: '/patient/appointment',
     icon: <CIcon icon={cilListRich} customClassName="nav-icon" />,
   },
   {
@@ -50,7 +50,7 @@ const _nav_p = [
   {
     component: CNavItem,
     name: 'Info',
-    to: '/doctor/info',
+    to: '/patient/info',
     icon: <CIcon icon={cilInfo} customClassName="nav-icon" />,
   },
   {

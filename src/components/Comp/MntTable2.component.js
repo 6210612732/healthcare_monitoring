@@ -54,9 +54,9 @@ const MntTable = () => {
       })
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
-      }
+      }pull_device()
     })
-    pull_device()
+    
     setcc(2)
   }
   function pull_device(){
@@ -84,13 +84,14 @@ const MntTable = () => {
           Swal.fire("remove successfully", '', 'success')  }}
       )} else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
-      }
+      } pull_device()
     })
-    pull_device()
+   
     setcc(2)
   }
-   useEffect(() => {
-  if(cc>0){ pull_device(); const dd = cc; setcc(dd-1) }
+  
+  useEffect(() => {
+  if(cc>0){ pull_device(); 
   axios.get('http://localhost:8082/api/patient/info-patient/'+uid).then(res => {
     const t = [(res.data)]
     setuser_data(t)
@@ -100,6 +101,7 @@ const MntTable = () => {
     catch(err){}
     console.log(user_data[0].username)
   })
+  const dd = cc; setcc(dd-1) }
   },[cc,device_ls]);
 
   function ss(ind){

@@ -13,7 +13,7 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
-
+import { useCookies,Cookies  } from 'react-cookie';
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 import { logo } from 'src/assets/brand/logo'
@@ -21,6 +21,8 @@ import { logo } from 'src/assets/brand/logo'
 const AppHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebarShow)
+  const cookies = new Cookies();
+  const person = cookies.get('person')
 
   return (
     <CHeader position="sticky" className="mb-4 w-auto">
@@ -33,7 +35,7 @@ const AppHeader = () => {
         </CHeaderToggler>
         
         <CHeaderNav className="ms-3">
-        <img src="https://random.cat/view/127" alt="Avatar" /> 
+        <h5>{person}</h5>
         </CHeaderNav>
       </CContainer>
       <CHeaderDivider />

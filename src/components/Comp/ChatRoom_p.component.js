@@ -6,27 +6,20 @@ import { useCookies,Cookies  } from 'react-cookie';
 const url = require('url');
 
 
-const ChatRoom = () => {
+const ChatRoom_p = () => {
   const cookies = new Cookies();
   const uid = cookies.get('id')
   const [chat_list, setchat_list] = useState([]);
   const [mess, setmess] = useState("");
   const [cc, setcc] = useState(2);
-  const [p_name, setp_name] = useState("");
-  const [p_realname, setp_realname] = useState("");
-  const [d_uname, setd_uname] = useState("");
-  let dev_temp = []
   const current_url = new URL(window.location.href)
   const search_params = current_url.searchParams;
   const cid = search_params.get('cid');
 
   useEffect(() => {
     if(cc>0){
-      axios.get('http://localhost:8082/api/chat/chat_list/'+uid+"/"+cid).then(res => {
+      axios.get('http://localhost:8082/api/chat/chat_list/'+cid+"/"+uid).then(res => {
       setchat_list(res.data)
-      setp_name(res.data[0].p_name)
-      setp_realname(res.data[0].real_name);
-      setd_uname(res.data[0].d_uname);
     })
     const dd = cc 
     setcc(dd-1)
@@ -38,7 +31,7 @@ const ChatRoom = () => {
         if (getValue.value !="") {
             getValue.value = "";
     }
-    const PObject = {p_id: cid, d_id: uid, side:"doctor", message: mess, read:"no",status:"0"}
+    const PObject = {p_id: uid, d_id: cid, side:"patient", message: mess, read:"no",status:"0"}
     axios.post('http://localhost:8082/api/chat/create_chatmessage/',PObject).then(res => {
       setcc(2)
   })
@@ -52,12 +45,12 @@ const ChatRoom = () => {
     return (
         <li className="d-flex justify-content-between mb-4">
         <div className='me-3'>
-        <img src={require ("../../assets/pic/boy_logo.jpg")} alt="avatar"
+        <img src={require ("../../assets/pic/doc_logo.jpg")} alt="avatar"
           className="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60"/>
         </div>
         <div className="card w-100">
           <div className="card-header d-flex justify-content-between p-3">
-            <p className="fw-bold mb-0">{chat_list[0].p_uname + " | " + chat_list[0].p_realname}</p>
+            <p className="fw-bold mb-0">{chat_list[0].d_uname + " | "}</p>
             <p className="text-muted small mb-0"><i class="far fa-clock"></i>{chat_list[index].timestamp}</p>
           </div>
           <div class="card-body">
@@ -83,7 +76,7 @@ const ChatRoom = () => {
             </p>
           </div>
         </div>
-        <img src={require ("../../assets/pic/doc_logo.jpg")} alt="avatar"
+        <img src={require ("../../assets/pic/boy_logo.jpg")} alt="avatar"
           className="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60"/>
       </li>
         )
@@ -101,10 +94,10 @@ const ChatRoom = () => {
                           
                         {(() => {
                           if (item.side == "doctor"){
-                              return ( <div>{doctor_message(index)}</div> )
+                              return ( <div>{patient_message(index)}</div> )
                             }
                           else{
-                            return ( <div>{patient_message(index)}</div> )
+                            return ( <div>{doctor_message(index)}</div> )
                           }
                         })()}
                       </div>
@@ -122,43 +115,4 @@ const ChatRoom = () => {
          )
 }
 
-export default ChatRoom
-/** left
- <li class="d-flex justify-content-between mb-4">
-                      <div className='me-3'>
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
-                            class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60"/>
-                        </div>
-                          <div class="card w-100">
-                            <div class="card-header d-flex justify-content-between p-3">
-                              <p class="fw-bold mb-0">Lara Croft</p>
-                              <p class="text-muted small mb-0"><i class="far fa-clock"></i> 13 mins ago</p>
-                            </div>
-                            <div class="card-body">
-                              <p class="mb-0">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium.
-                              </p>
-                            </div>
-                          </div>
-                        </li>
- */
-
-/**
- <li class="d-flex justify-content-between mb-4">
-                          <div class="card w-100">
-                            <div class="card-header d-flex justify-content-between p-3">
-                              <p class="fw-bold mb-0">Lara Croft</p>
-                              <p class="text-muted small mb-0"><i class="far fa-clock"></i> 13 mins ago</p>
-                            </div>
-                            <div class="card-body">
-                              <p class="mb-0">
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium.
-                              </p>
-                            </div>
-                          </div>
-                          <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
-                            class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60"/>
-                        </li>
- */
+export default ChatRoom_p

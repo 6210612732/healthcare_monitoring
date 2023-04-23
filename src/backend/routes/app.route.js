@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 let doctorSchema = require('../models/Doctor')
 let patientSchema = require('../models/Patient')
-
+let AppointmentSchema = require('../models/Appointment')
 
 // authen
 router.route('/authen').post((req, res) => {
@@ -55,7 +55,42 @@ router.route('/authen').post((req, res) => {
     })
 })
 
-// authen
+// make appointment
+router.route('/make_appointment').post( async (req, res, next) => 
+{
+    const temp = req.body;
+    if(temp.appoint[0].session == "session1")
+        temp.appoint[0].describe_session = "10:00 - 11:00"
+    else if(temp.appoint[0].session == "session2")
+        temp.appoint[0].describe_session = "11:00 - 12:00"
+    else if(temp.appoint[0].session == "session3")
+        temp.appoint[0].describe_session = "13:00 - 14:00"
+    else if(temp.appoint[0].session == "session4")
+        temp.appoint[0].describe_session = "14:00 - 15:00"
+    else if(temp.appoint[0].session == "session5")
+        temp.appoint[0].describe_session = "15:00 - 16:00"
+    
+    
+    const filter = { d_id:req.body.d_id, 'appoint.session':req.body.appoint[0].session, 'appoint.date': req.body.appoint[0].date }
+    const data2 = await AppointmentSchema.find(filter).lean();
+    //console.log(data2);
+    if(data2[0]== null){
+        AppointmentSchema.create(temp, (error, data) => {
+            if(error) { 
+                return  next(error);
+            } else {
+                //console.log("success ap");
+                res.json("make appoint success");
+            }
+        })
+    }
+    else{
+        console.log("fail ap");
+        res.json("That time has already appoint");
+    }
+})
+
+
 // Read patient 
 router.route('/').get((req, res) => {
     console.log("sda");

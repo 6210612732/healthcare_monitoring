@@ -20,6 +20,9 @@ let ChatSchema = new Schema({
     status: {
         type: String
     },
+    timestamp: {
+        type: String
+    },
 }, {
     collection: "chats"
 })

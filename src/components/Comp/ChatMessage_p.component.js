@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { useCookies,Cookies  } from 'react-cookie';
 import axios from 'axios'
 
-function ChatMessage(){
+function ChatMessage_p(){
   const [token, settoken] = useState("");
   const cookies = new Cookies();
   const uid = cookies.get('id')
@@ -23,7 +23,7 @@ function ChatMessage(){
       axios.post('http://localhost:8082/api/chat/create_chatroom',PObject)
       */
 
-    axios.get('http://localhost:8082/api/chat/see_chatroom/'+uid).then(res => {
+    axios.get('http://localhost:8082/api/chat/see_chatroom_p/'+uid).then(res => {
       setuser_data(res.data)
     })
     const dd = cc; setcc(dd-1) 
@@ -38,20 +38,20 @@ function ChatMessage(){
       let temp_recent = user_data[index].last_message
       let temp_time = user_data[index].time_last
       let temp_side = user_data[index].side
-      let temp_cid = user_data[index].p_id
+      let temp_cid = user_data[index].d_id
       console.log(temp_recent)
       return (
         <div>
         <li class="p-2 border-bottom">
-          <a href={"/doctor/chat?cid="+temp_cid} class="d-flex justify-content-between">
+          <a href={"/patient/chat?cid="+temp_cid} class="d-flex justify-content-between">
             <div class="d-flex flex-row">
               <div class="pt-1">
                 <p class="fw-bold mb-0">{temp_name}</p>
                 {(() => {
-                    if (temp_recent == ""){return ( <h4 class="small text-muted mt-2">no recent chat</h4> )}
+                    if (temp_recent == ""){return ( <p class="small text-muted mt-2">no recent chat</p> )}
                     else { 
-                      if(temp_side == "doctor"){return ( <h4 class="small mt-2"> me : {temp_recent}</h4> )}
-                      else if(temp_side == "patient"){return ( <p class="small mt-2"> {temp_name} : {temp_recent}</p> )}
+                      if(temp_side == "doctor"){return ( <h4 class="small mt-2"> {temp_name} : {temp_recent}</h4> )}
+                      else if(temp_side == "patient"){return ( <h4 class="small mt-2"> me : {temp_recent}</h4> )}
                   }
                  })()}
               </div>
@@ -85,8 +85,6 @@ function ChatMessage(){
                             {loop_bar(index)}
                             </div>
                           ))}
-                          
-                          
                           </ul>
                         </div>
                       </div>
@@ -99,6 +97,6 @@ function ChatMessage(){
          )
 }
 
-export default ChatMessage
+export default ChatMessage_p
 
 //<span className="badge bg-danger float-end">1</span>

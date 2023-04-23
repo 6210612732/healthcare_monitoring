@@ -29,6 +29,8 @@ export default class Abc extends Component {
           
           <p>patient</p>
           <a href="/patient/dashboard">dashboard patient</a><br></br>
+          <a href="/patient/search">search patient</a><br></br>
+          <a href="/patient/chat">chat doctor</a><br></br>
 
           
 

@@ -34,7 +34,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Chat',
-    to: '/doctor/chat',
+    to: '/doctor/chat_list',
     icon: <CIcon icon={cilChatBubble} customClassName="nav-icon" />,
   },
   {

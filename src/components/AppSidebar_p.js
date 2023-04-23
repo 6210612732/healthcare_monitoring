@@ -31,7 +31,7 @@ const AppSidebar_p = () => {
       }}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <img className="sidebar-brand-full" src={logo} height={35} />
+        <img className="sidebar-brand-full" src={require ("../assets/pic/logo_r.png")} height={130} />
         <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} />
       </CSidebarBrand>
       <CSidebarNav>

@@ -10,8 +10,8 @@ let appointmentSchema = new Schema({
     },
     appoint: [{
         date: {type: String  },
-        time_begin: {type: String  },
-        time_end: {type: String  },
+        session: {type: String  },
+        describe_session: {type: String  },
     }],
     status: {
         type: String
