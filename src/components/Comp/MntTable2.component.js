@@ -28,7 +28,7 @@ const tableExample = [
     },
   ]
 
-const MntTable = () => {
+const MntTable = ({socket}) => {
   const [token, settoken] = useState("");
   const cookies = new Cookies();
   const uid = cookies.get('id')
@@ -54,19 +54,20 @@ const MntTable = () => {
       })
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
-      }pull_device()
+      }pull_device(); setcc(10);
     })
-    
-    setcc(2)
   }
+
   function pull_device(){
     axios.get('http://localhost:8082/api/pair/me/'+uid).then(res => {
     for (let  i=0; i<res.data.length; i++){
       dev_temp.push(res.data[i])
     }
     setdevice_ls(dev_temp);
+    const dd = cc; setcc(dd-1) 
   })
   }
+  
   function remove_token(pp){
     Swal.fire({
       title: 'remove device token : ' + pp,
@@ -84,10 +85,8 @@ const MntTable = () => {
           Swal.fire("remove successfully", '', 'success')  }}
       )} else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
-      } pull_device()
-    })
-   
-    setcc(2)
+      } pull_device(); setcc(10);
+  })
   }
   
   useEffect(() => {
@@ -101,15 +100,61 @@ const MntTable = () => {
     catch(err){}
     console.log(user_data[0].username)
   })
-  const dd = cc; setcc(dd-1) }
+  }
   },[cc,device_ls]);
 
-  function ss(ind){
-    if (device_ls[ind].d_status == "1")
-      return ( <div>active</div>)
+  function print_row(index){
+    if (device_ls[index].d_status == "1")
+      return ( 
+        <CTableRow v-for="item in tableItems" color='success' key={index} >
+        <CTableDataCell className="text-center">
+        <CloseButton variant='dark'  onClick={() => remove_token(device_ls[index].device_token)}/>
+        </CTableDataCell>
+        <CTableDataCell className="text-center">
+          <div >
+            <span>{device_ls[index].device_token}</span>
+          </div>
+          <div className="small text-medium-emphasis"></div>
+        </CTableDataCell>
+        <CTableDataCell className="text-center">
+        <ChartPulse token={device_ls[index].device_token}/>
+        </CTableDataCell>
+        <CTableDataCell className="text-center">
+         <ChartPressure token={device_ls[index].device_token}/>
+        </CTableDataCell>
+        <CTableDataCell className="text-center">
+          <ChartOxi token={device_ls[index].device_token}/>
+        </CTableDataCell>
+        <CTableDataCell className="text-center">
+          <CheckStatus token={device_ls[index].device_token}/>
+        </CTableDataCell>
+      </CTableRow>
+        )
     else {
       return (
-       <div></div>
+        <CTableRow v-for="item in tableItems" key={index} >
+        <CTableDataCell className="text-center">
+        <CloseButton variant='dark'  onClick={() => remove_token(device_ls[index].device_token)}/>
+        </CTableDataCell>
+        <CTableDataCell className="text-center">
+          <div >
+            <span>{device_ls[index].device_token}</span>
+          </div>
+          <div className="small text-medium-emphasis"></div>
+        </CTableDataCell>
+        <CTableDataCell className="text-center">
+        <ChartPulse token={device_ls[index].device_token}/>
+        </CTableDataCell>
+        <CTableDataCell className="text-center">
+         <ChartPressure token={device_ls[index].device_token}/>
+        </CTableDataCell>
+        <CTableDataCell className="text-center">
+          <ChartOxi token={device_ls[index].device_token}/>
+        </CTableDataCell>
+        <CTableDataCell className="text-center">
+          <CheckStatus token={device_ls[index].device_token}/>
+        </CTableDataCell>
+      </CTableRow>
       )
     }
   }
@@ -147,37 +192,7 @@ const MntTable = () => {
                 </CTableHead>
                 <CTableBody>
                   {device_ls.map((item, index) => (
-                    <CTableRow v-for="item in tableItems" key={index} >
-                      <CTableDataCell className="text-center">
-                      <CloseButton variant='dark'  onClick={() => remove_token(item.device_token)}/>
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        <div >
-                          <span>{item.device_token}</span>
-                        </div>
-                        <div className="small text-medium-emphasis">{ss(index)}</div>
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-
-                      <ChartPulse name={"sass "}/>
-
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-
-                       <ChartPressure /> 
-
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-
-                        <ChartOxi />
-
-                      </CTableDataCell>
-                      <CTableDataCell className="text-center">
-                        
-                        <CheckStatus />
-
-                      </CTableDataCell>
-                    </CTableRow>
+                    print_row(index)
                   ))}
                 </CTableBody>
               </CTable>

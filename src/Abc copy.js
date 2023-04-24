@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Navigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 
-
 export default class Abc extends Component {
 
   render() {

@@ -21,15 +21,16 @@ function Calendar_doc() {
   const [cc, setcc] = useState(2);
   const [user_data, setuser_data] = useState([]);
   let dev_temp = []
-   
+
+
   function re(){
-    axios.get('http://localhost:8082/api/appointment/doc_schedule/'+uid).then(res => {
+    axios.get('http://localhost:8082/api/appointment/p_schedule/'+uid).then(res => {
     setd_ls(res.data)
     })}
 
   useEffect(() => {
     if(cc>0)
-    axios.get('http://localhost:8082/api/appointment/doc_schedule/'+uid).then(res => {
+    axios.get('http://localhost:8082/api/appointment/p_schedule/'+uid).then(res => {
       setd_ls(res.data)
       console.log(res.data)
     }) 
@@ -70,54 +71,30 @@ function Calendar_doc() {
     }
   }
 
-  function del(found){
-    Swal.fire({
-      title: 'Cancel Appointment',
-      showDenyButton: false,
-      showCancelButton: true,
-      confirmButtonText: 'Save',
-      denyButtonText: `Don't save`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        const PObject = { _id:found}
-        axios.post('http://localhost:8082/api/appointment/delete_appoint',PObject).then(res => {
-        if(res.data == "cancel success"){ 
-          Swal.fire("cancel success", '', 'success'); setcc(2); handleClose(); re()}}
-      )}
-    })
-  }
-
-
   function print_bar(session){
     if(session=="session1"){
       const found = d_ls.find(element => (element.appoint[0].date === datee.appoint[0].date && element.appoint[0].session=="session1"))
-      if(found){ return ( <div classname="my-3 mt-5"> session 1 (10:00 - 11:00) : {found.p_uname}  | {found.p_urname}
-      <Button variant="danger" className='mx-3 h-1' size="sm" onClick={()=>{del(found._id)}}> X </Button></div>) }
+      if(found){ return ( <div classname="my-3 mt-5"> session 1 (10:00 - 11:00) : {found.p_uname}  | {found.p_urname}</div>) }
       else{ return ( <div classname="my-3 mt-5"> session 1 (10:00 - 11:00) :  --- </div>) }
     }
     else if(session=="session2"){
       const found = d_ls.find(element => (element.appoint[0].date === datee.appoint[0].date && element.appoint[0].session=="session2"))
-      if(found){ return ( <div classname="my-3 mt-5"> session 2 (11:00 - 12:00) : {found.p_uname}  | {found.p_urname}
-      <Button variant="danger" className='mx-3 h-1' size="sm" onClick={()=>{del(found._id)}}> X </Button></div>) }
+      if(found){ return ( <div classname="my-3 mt-5"> session 2 (11:00 - 12:00) : {found.p_uname}  | {found.p_urname}</div>) }
       else{ return ( <div classname="my-3 mt-5"> session 2 (11:00 - 12:00) :  --- </div>) }
     }
     else if(session=="session3"){
       const found = d_ls.find(element => (element.appoint[0].date === datee.appoint[0].date && element.appoint[0].session=="session3"))
-      if(found){ return ( <div classname="my-3 mt-5"> session 3 (13:00 - 14:00) : {found.p_uname}  | {found.p_urname}
-      <Button variant="danger" className='mx-3 h-1' size="sm" onClick={()=>{del(found._id)}}> X </Button></div>) }
+      if(found){ return ( <div classname="my-3 mt-5"> session 3 (13:00 - 14:00) : {found.p_uname}  | {found.p_urname}</div>) }
       else{ return ( <div classname="my-3 mt-5"> session 3 (13:00 - 14:00)   :   --- </div>) }
     }
     else if(session=="session4"){
       const found = d_ls.find(element => (element.appoint[0].date === datee.appoint[0].date && element.appoint[0].session=="session4"))
-      if(found){ return ( <div classname="my-3 mt-5">  session 4 (14:00 - 15:00) : {found.p_uname}  | {found.p_urname}
-      <Button variant="danger" className='mx-3 h-1' size="sm" onClick={()=>{del(found._id)}}> X </Button></div>) }
+      if(found){ return ( <div classname="my-3 mt-5">  session 4 (14:00 - 15:00) : {found.p_uname}  | {found.p_urname}</div>) }
       else{ return ( <div classname="my-3 mt-5"> session 4 (14:00 - 15:00) :  --- </div>) }
     }
     else if(session=="session5"){
       const found = d_ls.find(element => (element.appoint[0].date === datee.appoint[0].date && element.appoint[0].session=="session5"))
-      if(found){ return ( <div classname="my-3 mt-5"> session 5 (15:00 - 16:00) : {found.p_uname}  | {found.p_urname} 
-      <Button variant="danger" className='mx-3 h-1' size="sm" onClick={()=>{del(found._id)}}> X </Button></div>) }
+      if(found){ return ( <div classname="my-3 mt-5"> session 5 (15:00 - 16:00) : {found.p_uname}  | {found.p_urname}</div>) }
       else{ return ( <div classname="my-3 mt-5"> session 5 (15:00 - 16:00) :  --- </div>) }
     }
   }

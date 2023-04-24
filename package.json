@@ -20,6 +20,7 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "chartjs-plugin-doughnut-innertext": "^3.1.0",
     "crypto-browserify": "^3.12.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "mdb-react-ui-kit": "^6.0.0",
@@ -37,6 +38,8 @@
     "redux": "^4.2.1",
     "simplebar": "^6.2.5",
     "simplebar-react": "^3.2.4",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
     "sweetalert2": "^11.7.3",
     "url": "^0.11.0",
     "web-vitals": "^2.1.4"
@@ -46,7 +49,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "webhook": "nodemon src/backend/service/webhook.js"
+    "webhook": "nodemon src/backend/service/webhook.js",
+    "socket": "nodemon src/backend/service/socket_io.js"
   },
   "eslintConfig": {
     "extends": [

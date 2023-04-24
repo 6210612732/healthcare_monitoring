@@ -20,10 +20,10 @@ function Info_patient (){
 
   useEffect(() => {
     if(cc>0){
-      axios.get('http://localhost:8082/api/patient/info-patient/'+uid).then(res => {
+      axios.get('http://localhost:8082/api/patient/info-patient/'+uid+"/"+"user").then(res => {
       setchat_list(res.data)
       let list_h2 = [res.data.detail[0].name_sur,res.data.tel,res.data.address,res.data.detail[0].gender,res.data.detail[0].blood_group,
-      res.data.detail[0].age,res.data.detail[0].kg_cm,res.data.detail[0].drug,res.data.detail[0].allergy,res.data.detail[0].chronic_disease,res.data.detail[0].description]
+      res.data.detail[0].age,res.data.detail[0].kg_cm,res.data.detail[0].drug,res.data.detail[0].allergy,res.data.detail[0].chronic_disease    ,res.data.detail[0].description]
       sett_list(list_h2)
       setbb(3)
     })
@@ -31,10 +31,7 @@ function Info_patient (){
     setcc(dd-1)
     }
   },[cc,chat_list]);
-    console.log(chat_list)
-    console.log(chat_list)
-    console.log(chat_list)
-    console.log(chat_list)
+
 
   function row_info(){
       let list_h1 = ["ชื่อ-นามสกุล","เบอร์โทร","ที่อยู่","เพศ","กรุ๊ปเลือด","อายุ","น้ำหนัก/ส่วนสูง(kg/cm)","แพ้ยา","อาการแพ้","โรคประจำตัว","หมายเหตุเพิ่มเติม"]

@@ -6,17 +6,24 @@ import { useCookies,Cookies  } from 'react-cookie';
 const url = require('url');
 
 
-const ChatRoom_p = () => {
+const ChatRoom_p = ({socket}) => {
   const cookies = new Cookies();
   const uid = cookies.get('id')
   const [chat_list, setchat_list] = useState([]);
   const [mess, setmess] = useState("");
   const [cc, setcc] = useState(2);
+  const [re_message, setre_message] = useState("");
+  const [message, setmessage] = useState("");
   const current_url = new URL(window.location.href)
+  const [p_name, setp_name] = useState("");
+  const [p_realname, setp_realname] = useState("");
+  const [d_uname, setd_uname] = useState("");
   const search_params = current_url.searchParams;
   const cid = search_params.get('cid');
-
+  
   useEffect(() => {
+    socket.on('messageResponse', (data) => setmessage(data));
+    check()
     if(cc>0){
       axios.get('http://localhost:8082/api/chat/chat_list/'+cid+"/"+uid).then(res => {
       setchat_list(res.data)
@@ -24,19 +31,30 @@ const ChatRoom_p = () => {
     const dd = cc 
     setcc(dd-1)
     }
-  },[cc,chat_list]);
+    console.log(message)
+  },[cc,chat_list,message,socket]);
   
   function sendmess(){
     let getValue= document.getElementById("area");
         if (getValue.value !="") {
             getValue.value = "";
     }
+    socket.emit('message',mess);
     const PObject = {p_id: uid, d_id: cid, side:"patient", message: mess, read:"no",status:"0"}
     axios.post('http://localhost:8082/api/chat/create_chatmessage/',PObject).then(res => {
-      setcc(2)
+      setcc(1)
+      
+    
+
   })
   }
-
+  function check(){
+    if(message!=re_message){
+      setre_message(setmessage)
+      setcc(2)
+    }
+  }
+  
   function my_setmess(e){
     setmess(e.target.value)
   }

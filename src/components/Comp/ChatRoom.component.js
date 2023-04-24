@@ -6,42 +6,55 @@ import { useCookies,Cookies  } from 'react-cookie';
 const url = require('url');
 
 
-const ChatRoom = () => {
+const ChatRoom = ({socket}) => {
   const cookies = new Cookies();
   const uid = cookies.get('id')
   const [chat_list, setchat_list] = useState([]);
   const [mess, setmess] = useState("");
+  const [re_message, setre_message] = useState("");
   const [cc, setcc] = useState(2);
-  const [p_name, setp_name] = useState("");
-  const [p_realname, setp_realname] = useState("");
-  const [d_uname, setd_uname] = useState("");
-  let dev_temp = []
   const current_url = new URL(window.location.href)
   const search_params = current_url.searchParams;
   const cid = search_params.get('cid');
+  const [message, setmessage] = useState("");
+  const [p_name, setp_name] = useState("");
+  const [p_realname, setp_realname] = useState("");
+  const [d_uname, setd_uname] = useState("");
 
   useEffect(() => {
+    socket.on('messageResponse', (data) => setmessage(data));
+    check()
     if(cc>0){
       axios.get('http://localhost:8082/api/chat/chat_list/'+uid+"/"+cid).then(res => {
       setchat_list(res.data)
       setp_name(res.data[0].p_name)
       setp_realname(res.data[0].real_name);
       setd_uname(res.data[0].d_uname);
+      
     })
     const dd = cc 
     setcc(dd-1)
     }
-  },[cc,chat_list]);
+    console.log(message)
+  },[cc,,message,socket]);
   
   function sendmess(){
     let getValue= document.getElementById("area");
         if (getValue.value !="") {
             getValue.value = "";
     }
+    socket.emit('message',mess);
     const PObject = {p_id: cid, d_id: uid, side:"doctor", message: mess, read:"no",status:"0"}
     axios.post('http://localhost:8082/api/chat/create_chatmessage/',PObject).then(res => {
-      setcc(2)
+      setcc(1)
   })
+  }
+
+  function check(){
+    if(message!=re_message){
+      setre_message(setmessage)
+      setcc(2)
+    }
   }
 
   function my_setmess(e){

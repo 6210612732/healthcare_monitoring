@@ -3,7 +3,7 @@ import { AppContent, AppSidebar_p, AppFooter, AppHeader } from '../../index';
 import DashSum from '../../Comp/DashSum.component';
 import MntTable2 from '../../Comp/MntTable2.component';
 
-const Dashboard_patient = () => {
+const Dashboard_patient = ({socket}) => {
   
   return (
     <div className="gg">
@@ -12,7 +12,7 @@ const Dashboard_patient = () => {
         <AppHeader />
         <div className="body flex-grow-1 px-5">
 
-          <MntTable2 />
+          <MntTable2 socket={socket}/>
         </div>
         <AppFooter />
       </div>

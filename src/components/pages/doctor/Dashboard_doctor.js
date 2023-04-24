@@ -3,7 +3,7 @@ import { AppContent, AppSidebar, AppFooter, AppHeader } from '../../index';
 import DashSum from '../../Comp/DashSum.component';
 import MntTable from '../../Comp/MntTable.component';
 
-const Dashboard_doctor = () => {
+const Dashboard_doctor = (  ) => {
   
   return (
     <div className="gg">

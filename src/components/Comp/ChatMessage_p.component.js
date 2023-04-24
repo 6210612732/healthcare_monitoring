@@ -43,7 +43,7 @@ function ChatMessage_p(){
       return (
         <div>
         <li class="p-2 border-bottom">
-          <a href={"/patient/chat?cid="+temp_cid} class="d-flex justify-content-between">
+          <a href={"/patient/chat?cid="+temp_cid} style={{ textDecoration: 'none' , color:"#303c54"}} class="d-flex justify-content-between">
             <div class="d-flex flex-row">
               <div class="pt-1">
                 <p class="fw-bold mb-0">{temp_name}</p>

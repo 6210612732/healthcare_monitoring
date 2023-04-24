@@ -1,8 +1,8 @@
 import React from 'react'
 import { AppContent, AppSidebar_p, AppFooter, AppHeader } from '../../index';
-import ChatRoom_p from '../../Comp/ChatRoom_p.component';
+import Calendar_p from '../../Comp/Calendar_p.component';
 
-const Chat_patient = ({socket}) => {
+const Appointment_patient = () => {
   
   return (
     <div className="gg">
@@ -10,7 +10,7 @@ const Chat_patient = ({socket}) => {
       <div className="wrapper d-flex flex-column min-vh-100 bg-light " >
         <AppHeader />
         <div className="body flex-grow-1 px-5">
-          <ChatRoom_p socket={socket}/>
+          <Calendar_p />
         </div>
         <AppFooter />
       </div>
@@ -18,4 +18,4 @@ const Chat_patient = ({socket}) => {
   )
 }
 
-export default Chat_patient
+export default Appointment_patient

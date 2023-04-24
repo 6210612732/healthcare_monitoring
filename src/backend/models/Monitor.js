@@ -5,7 +5,10 @@ let monitorSchema = new Schema({
     device_token: {
         type: String
     },
-    timestamp: {
+    date: {
+        type: String
+    },
+    time: {
         type: String
     },
     BloodPress: [{

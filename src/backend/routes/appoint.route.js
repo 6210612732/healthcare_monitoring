@@ -30,18 +30,46 @@ router.route('/make_appoint').get((req, res, next) => {
     })
 });
 
+// doc_schedule
+router.route('/doc_schedule/:did').get( async (req, res,next) => {
+    const data = await appointSchema.find({ d_id: req.params.did}).lean();
+    let temp_ls = data;
+        for(let i=0;i<data.length;i++){
+            let j = data[i].p_id
+            const data2 = await patientSchema.findOne({ _id:j}).lean();
+            temp_ls[i].p_uname = data2.username
+            temp_ls[i].p_urname = data2.detail[0].name_sur
+        }
+        res.json(temp_ls);
+})
+// p schedule
+router.route('/p_schedule/:pid').get( async (req, res,next) => {
+    const data = await appointSchema.find({ p_id: req.params.pid}).lean();
+    let temp_ls = data;
+        for(let i=0;i<data.length;i++){
+            let j = data[i].p_id
+            const data2 = await doctorSchema.findOne({ d_id:j}).lean();
+            temp_ls[i].p_uname = data2.username
+            temp_ls[i].p_urname = data2.detail[0].name_sur
+        }
+        res.json(temp_ls);
+})
 
-router.route('/doc_schedule/:did').get((req, res,next) => {
-    appointSchema.find({ d_id: req.params.did}, (error, data) => {
+// delete apppoint
+router.route('/delete_appoint').post((req, res) => {
+    const filter = { _id:req.body._id }
+    appointSchema.findByIdAndRemove(req.body._id , (error,data) => {
         if(error) {
             return next(error);
         } else {
-            res.json(data);
-
+            res.json("cancel success");
         }
     })
-})
-
+});
+/**
+ 
+    
+ */
 // 
 router.route('/').get((req, res) => {
     console.log("sda");

@@ -11,6 +11,9 @@ let followingSchema = new Schema({
     status: {
         type: String
     },
+    violent: {
+        type: String
+    },
 }, {
     collection: "followings"
 })

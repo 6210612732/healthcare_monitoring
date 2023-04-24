@@ -1,4 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import Chart from "chart.js/auto";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+import { Line } from 'react-chartjs-2';
+import axios from "axios";
+import { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,10 +14,62 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
-//import faker from 'faker';
-import { faker } from '@faker-js/faker';
 
+
+function CharPressure(props){
+  const [mode, setmode] = useState("");
+  const [d_data, setd_data] = useState([]);
+  const [data, setdata] = useState([]);
+  const [cc, setcc] = useState(1);
+  const [a, seta] = useState(0);
+  const [count, setcount] = useState(0);
+  const [list_upper, set_upper] = useState([]);
+  const [list_lower, set_lower] = useState([]);
+  const [list_time, set_time] = useState([]);
+  const [list_date, set_date] = useState([]);
+  let b = {}
+  
+  let temp = []
+  async function clean_data(item){
+   for(let i=0;i<item.length;i++){
+        if('BloodPress' in item[i]){
+            //console.log(item[i].Oximeter[0].SAT)
+            temp=data; temp.push({date:item[i].date,time:item[i].time,pressupper:item[i].BloodPress[0].SYS,presslower:item[i].BloodPress[0].DIA})
+            setdata(temp);  const dd = count; setcount(dd+1)
+            if(count>=4){  break  }
+        }
+    } 
+    
+      if(count<4){
+      for(let j = count;j<4;j++){
+        temp=data; temp.push({date:"0",time:"0",pressupper:"0",presslower:"0"}); setdata(temp); 
+        const dd = count; setcount(dd+1)
+      }
+    } 
+    data.splice(4);    
+    for(let k=3;k>=0;k--){
+      list_upper.push(data[k].pressupper)
+      list_lower.push(data[k].presslower)
+      list_time.push(data[k].time)
+      list_date.push(data[k].date)
+    }
+    //console.log(list_upper)
+  }
+
+  useEffect(() => {
+    if(cc>0){
+      axios.get('http://localhost:8082/api/monitor/mini_monitor/'+props.token+"/"+"pressure").then(res => {
+        //console.log(res.data)
+        setd_data(res.data)
+        clean_data(res.data)
+      //console.log(d_data)
+    })
+    const dd = cc 
+    setcc(dd-1)
+    }
+  },[cc]);
+
+  
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -22,37 +79,9 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const tempupper = [107,108,109,110]
-const templower = [75,75,76,76]
-function range(start, count) {
-  if(arguments.length == 1) {
-      count = start;
-      start = 0;
-  }
 
-  var foo = [];
-  for (var i = 0; i < count; i++) {
-      foo.push(start + i);
-  }
-  return foo;
-}
-
-function timeLabel(){
-  var timeArray = [],
-    d = new Date(),
-    h = d.getHours(),
-    m = d.getMinutes(),
-    s = d.getSeconds()
-  //for (var i = h; i < 20; ++i) {
-      //for (var j = i==h ? Math.ceil(m/15) : 0; j < 4; ++j) {
-          timeArray.push(h + ':' + m + ':' + s );
-      //}
-  //}
-  return timeArray;
-}
-
-
-export const options = {
+const labels = list_time
+const options = {
   responsive: true,
   plugins: {
    // legend: {
@@ -65,41 +94,37 @@ export const options = {
   },
 };
 
-// heart rate 70-200
-// pressure 60-220 upper/lower
-// oxy 60-100%
 
-const labels = ["7d ago","20:34","1m ago", "now"];
-const time_label = timeLabel();
-//console.log(time_label);
 
-const fake_press = labels.map(() => faker.datatype.number({ min: 60, max: 220 }));
-console.log(fake_press);
-const ss = labels.map(() => fake_press.map((num) => num-1 ));
-console.log(ss);
-
-export const data = {
+const data2 = {
   labels,
   datasets: [
     {
       label: 'upper',
-      data: tempupper,
+      data: list_upper,
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
         label: 'lower',
-        data: templower,
+        data: list_lower,
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
   ],
 };
 
-export default class ChartPressure extends Component {
-  render() {
-    return (
-        <Line options={options} data={data}    />
-    )
-  }
+  return(
+    <div >
+    <Line options={options} data={data2}    />
+  </div>
+
+  )
+
 }
+
+export default CharPressure
+
+
+
+

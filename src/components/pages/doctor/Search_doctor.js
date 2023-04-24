@@ -46,7 +46,6 @@ const Search_doctor = () => {
     console.log(cc)
     }
   },[cc]);
-  console.log(mode+"  k  "+search)
 
   function search_button(){
     const PObject2 = { d_id: uid, mode: mode, search: search}
@@ -68,7 +67,7 @@ const Search_doctor = () => {
     let item = user_data[index]
     if(item.bt_status == '2'){
        return (
-         <CTableRow v-for="item in tableItems" color="success" key={index} onClick={()=>{window.location.assign('info?cid='+item._id)}} >
+         <CTableRow v-for="item in tableItems" color="success" key={index} className='c_hover' onClick={()=>{window.location.assign('info?cid='+item._id)}} >
                          <CTableDataCell className="text-center">
                            {index+1}
                          </CTableDataCell>

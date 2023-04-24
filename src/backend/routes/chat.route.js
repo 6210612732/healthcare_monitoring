@@ -47,7 +47,7 @@ router.route('/chat_list/:d_id/:p_id').get( async (req, res, next) =>
         data[i].p_realname = data3.detail[0].name_sur
         data[i].d_uname = data2.username
     }
-    console.log(data)
+    //console.log(data)
     res.json(data)
 })
 
@@ -65,7 +65,7 @@ router.route('/create_chatroom').post((req, res, next) =>
         if(error) { 
             return  next(error);
         } else {
-            console.log(data);
+            //console.log(data);
             res.json(data);
         }
     })

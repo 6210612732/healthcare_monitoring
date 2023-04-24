@@ -8,12 +8,14 @@ let followingSchema = require('../models/Following')
 let patientSchema = require('../models/Patient')
 let doctorSchema = require('../models/Doctor')
 let chatroomSchema = require('../models/ChatRoom')
+let pairSchema = require('../models/Pair_device')
 // create 
 router.route('/create_request').post((req, res, next) => 
 {
     const temp = req.body;
     //console.log(req.body+" dff ddd");
     temp.status =  "1";
+    temp.violent =  "0";
     followingSchema.create(temp, (error, data) => {
         if(error) { 
             return  next(error);
@@ -41,6 +43,26 @@ router.route('/my_request/:p_id').get( async (req, res) => {
 })
 
 
+// doctor see monitor 
+router.route('/monitor_doctor/:d_id').get( async (req, res) => {
+    let filter2 = { d_id:req.params.d_id , status:"2"}
+    const data = await followingSchema.find(filter2).sort({_id: -1}).lean();
+    let temp_ls = data;
+            for(let i=0;i<data.length;i++){
+                let j = data[i].p_id
+                let filter = { _id:j}
+                const data2 = await patientSchema.findOne(filter).lean();
+                temp_ls[i].pat_uname = data2.username
+                temp_ls[i].pat_rname = data2.detail[0].name_sur
+                temp_ls[i].pat_age = data2.detail[0].age
+                temp_ls[i].pat_id = data2._id
+                temp_ls[i].pat_violent = data2.violent
+                const data3 = await pairSchema.findOne({p_id:data2._id, d_status:"1"}).lean();
+                if(data3){ temp_ls[i].device_token = data3.device_token }
+                else{ temp_ls.splice(i, 1);    i--;   }
+            }
+            res.json(temp_ls);
+})
 
 
 // following accept
@@ -71,6 +93,19 @@ router.route('/accept_request').post((req, res, next) => {
     })
 })
 
+// violent update 
+router.route('/violent_update').post((req, res, next) => {
+    let filter2 = { _id: req.body.v_id}
+    let update = { violent: req.body.violent}
+    followingSchema.findOneAndUpdate( filter2,update,(error,data) => {
+        if(error) {
+            return next(error);
+            console.log(error);
+        }else{ //console.log(data); 
+        }
+    })
+})
+
 // doctor search following 
 router.route('/search_request').post( async (req, res) => {
     //console.log(req.body.mode + " gg " + req.body.search)
@@ -80,7 +115,7 @@ router.route('/search_request').post( async (req, res) => {
     else if(req.body.mode == "una"){
         filter2 = { username:{ $regex: '.*' +  req.body.search + '.*' }}}
     
-    const data = await patientSchema.find(filter2).lean();
+    const data = await patientSchema.find(filter2).sort({_id: -1}).lean();
     let temp_ls = data;
             for(let i=0;i<data.length;i++){
                 let j = data[i]._id
@@ -117,6 +152,7 @@ router.route('/edit-doctor/:id').get((req, res) => {
             res.json(data);
         }
     })
+    
 })
 
 

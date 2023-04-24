@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 
 // patient model
 let patientSchema = require('../models/Patient')
+let followingSchema = require('../models/Following')
 
 // create patient
 router.route('/create-patient').post((req, res, next) => {
@@ -39,15 +40,22 @@ router.route('/').get((req, res) => {
 })
 
 // Get single patient 
-router.route('/info-patient/:id').get((req, res,next) => {
-    patientSchema.findOne({ _id: req.params.id}, (error, data) => {
-        if(error) {
-            return next(error);
-        } else {
-            //console.log(data)
-        res.json(data);
-        }
-    })
+router.route('/info-patient/:id/:did').get( async (req, res,next) => {
+    let ff = req.params.did
+    if(req.params.did == "patient"){
+         ff = ""
+    }
+    const data = await patientSchema.findOne({ _id: req.params.id}).lean();
+    let temp_ls = data;
+            let filter = { d_id:ff}
+            console.log()
+            const data2 = await followingSchema.findOne(filter).lean();
+            if(data2!=null){
+            temp_ls.violent = data2.violent
+            temp_ls.v_id = data2._id
+             }
+            res.json(temp_ls);
+            //console.log(data); 
 })
 
 // Update patient
