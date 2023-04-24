@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'
 import { useCookies,Cookies  } from 'react-cookie';
+const fff = process.env.host4
 const url = require('url');
 
 
@@ -32,6 +33,10 @@ const ChatRoom_p = ({socket}) => {
     setcc(dd-1)
     }
     console.log(message)
+    console.log(fff)
+    console.log(fff)
+    console.log(fff)
+    console.log(fff)
   },[cc,chat_list,message,socket]);
   
   function sendmess(){

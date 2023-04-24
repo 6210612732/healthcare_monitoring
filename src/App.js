@@ -33,8 +33,8 @@ import Template_layout from './components/pages/Template_layout';
 import './scss/style.scss'
 import socketIO from 'socket.io-client';
 
-require('dotenv').config();
-const socket = socketIO.connect(process.env.host4);
+//require('dotenv').config();
+const socket = socketIO.connect("http://localhost:8084");
 
 function App() {
   const cookies = new Cookies();

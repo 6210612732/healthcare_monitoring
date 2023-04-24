@@ -3,8 +3,8 @@ export default class CheckStatus extends Component {
   render() {
     return (
       <div>
-        <strong>normal</strong>
-        <div className="small text-medium-emphasis">20s ago</div>
+        <p>normal</p>
+        <div className="small text-medium-emphasis"></div>
       </div>
     );
   }

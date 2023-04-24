@@ -50,7 +50,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "webhook": "nodemon src/backend/service/webhook.js",
-    "socket": "nodemon src/backend/service/socket_io.js"
+    "socket": "nodemon src/backend/service/socket_io.js",
+    "project1": "npm start && nodemon src/backend/service/socket_io.js && nodemon src/backend/service/webhook.js"
   },
   "eslintConfig": {
     "extends": [

@@ -19,7 +19,7 @@ socketIO.on('connection', (socket) => {
     console.log("user just connected!")
 
     socket.on('message', (data) => {
-        //console.log(data);
+       // console.log(data);
         socketIO.emit('messageResponse', data);
       });
       
