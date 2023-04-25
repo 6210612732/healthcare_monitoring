@@ -14,9 +14,10 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import socketIO from 'socket.io-client';
+const socket = socketIO.connect("http://localhost:8084");
 
-
-function CharPressure({socket,token}){
+function CharPressure({token}){
   const [mode, setmode] = useState("");
   const [d_data, setd_data] = useState([]);
   const [data, setdata] = useState([]);

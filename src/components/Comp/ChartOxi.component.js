@@ -4,8 +4,11 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import socketIO from 'socket.io-client';
+const socket = socketIO.connect("http://localhost:8084");
 
-function ChartOxi({socket,token}){
+
+function ChartOxi({token}){
   const [mode, setmode] = useState("");
   const [d_data, setd_data] = useState([]);
   const [data, setdata] = useState([]);
