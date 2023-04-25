@@ -14,9 +14,10 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import socketIO from 'socket.io-client';
+const socket = socketIO.connect("http://localhost:8084");
 
-
-function ChartPulse(props){
+function ChartPulse({token}){
   const [mode, setmode] = useState("");
   const [d_data, setd_data] = useState([]);
   const [data, setdata] = useState([]);
@@ -26,11 +27,16 @@ function ChartPulse(props){
   const [list_pulse, set_pulse] = useState([]);
   const [list_time, set_time] = useState([]);
   const [list_date, set_date] = useState([]);
+  const [re_message, setre_message] = useState("");
+  const [message, setmessage] = useState("");
   let b = {}
-  
+  let temp_l=[]
   let temp = []
   async function clean_data(item){
+    setcount(0)
    for(let i=0;i<item.length;i++){
+    setdata(0)
+    setcount(0)
         if('BloodPress' in item[i]){
             //console.log(item[i].Oximeter[0].SAT)
             temp=data; temp.push({date:item[i].date,time:item[i].time,pulse:item[i].BloodPress[0].PUL})
@@ -43,24 +49,34 @@ function ChartPulse(props){
             if(count>=4){  break  }
         } 
     }
-      if(count<4){
+   /*   if(count<4){
       for(let j = count;j<4;j++){
         temp=data; temp.push({date:"0",time:"0",pulse:"0"}); setdata(temp); 
         const dd = count; setcount(dd+1)
       }
-    } 
-    data.splice(4);    
-    for(let k=3;k>=0;k--){
-      list_pulse.push(data[k].pulse)
-      list_time.push(data[k].time)
-      list_date.push(data[k].date)
-    }
-    console.log(list_time)
+    } */
+    const data_2 = data.reverse()
+    //data.reverse()
+    const data3 = [{pulse:data_2[3].pulse, date:data_2[3].date, time:data_2[3].time },
+                  {pulse:data_2[2].pulse, date:data_2[2].date, time:data_2[2].time },
+                  {pulse:data_2[1].pulse, date:data_2[1].date, time:data_2[1].time },
+                  {pulse:data_2[0].pulse, date:data_2[0].date, time:data_2[0].time },
+                  ]
+    //setdata(data3)   
+    //console.log(data3)
+     
+      set_pulse([data3[0].pulse,data3[1].pulse,data3[2].pulse,data3[3].pulse]);
+      set_time([data3[0].time,data3[1].time,data3[2].time,data3[3].time]);
+      set_date([data3[0].date,data3[1].date,data3[2].date,data3[3].date]);
+    
   }
 
   useEffect(() => {
+    socket.on('all_device_update', (data) => setmessage(data));
+    check()
     if(cc>0){
-      axios.get('http://localhost:8082/api/monitor/mini_monitor/'+props.token+"/"+"pressure").then(res => {
+      //console.log("workk")
+      axios.get('http://localhost:8082/api/monitor/mini_monitor/'+token+"/"+"pressure").then(res => {
         //console.log(res.data)
         setd_data(res.data)
         clean_data(res.data)
@@ -69,8 +85,14 @@ function ChartPulse(props){
     const dd = cc 
     setcc(dd-1)
     }
-  },[cc]);
-
+  },[cc,message]);
+  //console.log(message)
+  function check(){
+    if(message!=re_message){
+      setre_message(setmessage)
+      setcc(2)
+    }
+  }
   
 ChartJS.register(
   CategoryScale,
@@ -98,7 +120,7 @@ const options = {
 };
 
 const labels = list_time
-console.log(list_time)
+//console.log(list_time)
 const temp2 = [107,108,107,107]
 const data2 = {
   labels,

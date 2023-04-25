@@ -1,6 +1,5 @@
 import React from 'react'
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { useState, useEffect } from "react";
 import Swal from 'sweetalert2'
 import { useCookies,Cookies  } from 'react-cookie';
@@ -22,6 +21,7 @@ function Calendar_doc() {
   const [user_data, setuser_data] = useState([]);
   let dev_temp = []
    
+  
   function re(){
     axios.get('http://localhost:8082/api/appointment/doc_schedule/'+uid).then(res => {
     setd_ls(res.data)

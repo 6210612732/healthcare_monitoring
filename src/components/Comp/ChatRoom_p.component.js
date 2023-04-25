@@ -32,11 +32,7 @@ const ChatRoom_p = ({socket}) => {
     const dd = cc 
     setcc(dd-1)
     }
-    console.log(message)
-    console.log(fff)
-    console.log(fff)
-    console.log(fff)
-    console.log(fff)
+    //console.log(message)
   },[cc,chat_list,message,socket]);
   
   function sendmess(){

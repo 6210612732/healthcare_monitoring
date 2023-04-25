@@ -36,6 +36,8 @@ const MntTable = ({socket}) => {
   const [uu, setuu] = useState("sung");
   const [device_ls, setdevice_ls] = useState([]);
   const [user_data, setuser_data] = useState([]);
+  const [re_message, setre_message] = useState("");
+  const [message, setmessage] = useState("");
   let dev_temp = []
   function add_token(){
     Swal.fire({
@@ -88,8 +90,17 @@ const MntTable = ({socket}) => {
       } pull_device(); setcc(10);
   })
   }
-  
+
+  function check(){
+    if(message!=re_message){
+      setre_message(setmessage)
+      setcc(2)
+    }
+  }
+
   useEffect(() => {
+    socket.on('all_device_update', (data) => setmessage(data));
+    check()
   if(cc>0){ pull_device(); 
   axios.get('http://localhost:8082/api/patient/info-patient/'+uid).then(res => {
     const t = [(res.data)]
@@ -98,10 +109,12 @@ const MntTable = ({socket}) => {
       setuu(user_data[0].username)
     }
     catch(err){}
-    console.log(user_data[0].username)
+    //console.log(user_data[0].username)
   })
   }
   },[cc,device_ls]);
+  //console.log(message)
+
 
   function print_row(index){
     if (device_ls[index].d_status == "1")
@@ -112,21 +125,22 @@ const MntTable = ({socket}) => {
         </CTableDataCell>
         <CTableDataCell className="text-center">
           <div >
-            <span>{device_ls[index].device_token}</span>
+            <span>{device_ls[index].device_token}</span><p>active</p>
           </div>
           <div className="small text-medium-emphasis"></div>
         </CTableDataCell>
         <CTableDataCell className="text-center">
-        <ChartPulse token={device_ls[index].device_token}/>
+        <ChartPulse token={device_ls[index].device_token} socket = {socket}/>
+        
         </CTableDataCell>
         <CTableDataCell className="text-center">
-         <ChartPressure token={device_ls[index].device_token}/>
+         <ChartPressure token={device_ls[index].device_token} socket = {socket}/>
         </CTableDataCell>
         <CTableDataCell className="text-center">
-          <ChartOxi token={device_ls[index].device_token}/>
+          <ChartOxi token={device_ls[index].device_token} socket = {socket}/>
         </CTableDataCell>
         <CTableDataCell className="text-center">
-          <CheckStatus token={device_ls[index].device_token}/>
+          <CheckStatus token={device_ls[index].device_token} socket = {socket}/>
         </CTableDataCell>
       </CTableRow>
         )
@@ -186,7 +200,7 @@ const MntTable = ({socket}) => {
                     <CTableHeaderCell className="text-center">Token</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Pulse</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Pressure</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">%Oxi</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">SpO2</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Status</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>

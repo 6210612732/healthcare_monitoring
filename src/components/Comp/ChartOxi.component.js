@@ -5,7 +5,7 @@ import { Bar } from "react-chartjs-2";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function ChartOxi(props){
+function ChartOxi({socket,token}){
   const [mode, setmode] = useState("");
   const [d_data, setd_data] = useState([]);
   const [data, setdata] = useState([]);
@@ -13,20 +13,32 @@ function ChartOxi(props){
   const [a, seta] = useState(0);
   const [date, setdate] = useState("");
   const [time, settime] = useState("");
+  const [re_message, setre_message] = useState("");
+  const [message, setmessage] = useState("");
   let temp = []
+  let b = 0
   function clean_data(item){
+
     for(let i=0;i<item.length;i++){
-        if('Oximeter' in item[i]){
-            //console.log(item[i].Oximeter[0].SAT)
-            seta(item[i].Oximeter[0].SAT)
-            break
-        }
-    } 
+      setdata(0)
+          if('Oximeter' in item[i]){
+              //console.log(item[i].Oximeter[0].SAT)
+              temp=data; temp.push({date:item[i].date,time:item[i].time,oxi:item[i].Oximeter[0].SAT})
+              setdata(temp); 
+          }
+      }
+  
+      const data_2 = data.reverse()
+      seta(data_2[0].oxi)
+      settime(data_2[0].time)
+     console.log(a)
   }
 
   useEffect(() => {
+    socket.on('all_device_update', (data) => setmessage(data));
+    check()
     if(cc>0){
-      axios.get('http://localhost:8082/api/monitor/mini_monitor/'+props.token+"/"+"oxi").then(res => {
+      axios.get('http://localhost:8082/api/monitor/mini_monitor/'+token+"/"+"oxi").then(res => {
         //console.log(res.data)
         setd_data(res.data)
         clean_data(res.data)
@@ -35,13 +47,19 @@ function ChartOxi(props){
     const dd = cc 
     setcc(dd-1)
     }
-  },[cc]);
+  },[cc,message]);
 
+  function check(){
+    if(message!=re_message){
+      setre_message(setmessage)
+      setcc(1)
+    }
+  }
   const dataBar = {
-    labels: ["gg"],
+    labels: [time],
     datasets: [
       {
-        label: "good",
+        label: "%",
         backgroundColor: "#EC932F",
         borderColor: "rgba(255,99,132,1)",
         borderWidth: 1,

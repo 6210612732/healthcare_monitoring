@@ -23,8 +23,9 @@ socketIO.on('connection', (socket) => {
         socketIO.emit('messageResponse', data);
       });
       
-    socket.on('monitor_', (data) => {
+    socket.on('all_device', (data) => {
         console.log(data);
+        socketIO.emit('all_device_update', data);
     });
 
 

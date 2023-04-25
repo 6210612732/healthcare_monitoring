@@ -3,22 +3,22 @@ let mongoose = require('mongoose'),
     express = require('express'),
     router = express.Router();
 
-const socket = io("http://localhost:8084");
+let socket = io("http://localhost:8084",{
+    reconnection: true
+})
 
 // student model
 let monitorSchema = require('../models/Monitor')
 
 // create student
 router.route('/sniff-monitor').post((req, res, next) => {
-    socket.emit('monitor_',"update_");
-
-    console.log(req.body);
+    //console.log(req.body);
     monitorSchema.create(req.body, (error, data) => {
         if(error) { 
             return  next(error);
         } else {
-            
-            console.log(data);
+             socket.emit('all_device',"update_"+JSON.stringify( data._id));
+            //console.log(JSON.stringify( data._id));
             //res.json(data);
         }
     })
@@ -80,9 +80,10 @@ router.route('/delete-monitor/:id').delete((req, res, next) => {
 // mini oxy
 router.route('/mini_monitor/:token/:device').get( async (req, res) => {
     let filter2 = { device_token:req.params.token }
-    const data = await monitorSchema.find(filter2).sort({_id: -1}).lean();
+    const data = await monitorSchema.find(filter2).lean();
     let temp_ls = data;
     let d_data = []
+    console.log(temp_ls)
     res.json(data)
     /*
     if(req.params.device == "oxi"){
