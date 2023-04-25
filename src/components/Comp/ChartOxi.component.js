@@ -34,7 +34,7 @@ function ChartOxi({token}){
       const data_2 = data.reverse()
       seta(data_2[0].oxi)
       settime(data_2[0].time)
-     console.log(a)
+     //console.log(a)
   }
 
   useEffect(() => {

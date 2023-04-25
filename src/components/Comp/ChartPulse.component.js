@@ -41,12 +41,12 @@ function ChartPulse({token}){
             //console.log(item[i].Oximeter[0].SAT)
             temp=data; temp.push({date:item[i].date,time:item[i].time,pulse:item[i].BloodPress[0].PUL})
             setdata(temp);  const dd = count; setcount(dd+1)
-            if(count>=4){  break  }
+            //if(count>=1){  break  }
         }
         else if('Oximeter' in item[i]){
           temp=data; temp.push({date:item[i].date,time:item[i].time,pulse:item[i].Oximeter[0].PUL})
             setdata(temp);  const dd = count; setcount(dd+1)
-            if(count>=4){  break  }
+            //if(count>=1){  break  }
         } 
     }
    /*   if(count<4){

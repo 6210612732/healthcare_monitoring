@@ -65,7 +65,7 @@ presslower = [75,75,76,76]
 oxi = [95,96,97,98]
 list_date =  [["2023-04-04","20:25"],["2023-04-04","20:27"],["2023-04-04","20:29"],["2023-04-04","20:31"]]
 k = 1
-for j in range(50):
+for j in range(500):
     i = 0
     for i in range(4):
         k+=1
@@ -74,6 +74,7 @@ for j in range(50):
         client.loop_stop()
         dt = datetime.now()
         date_time = str(dt).split()
-        push_data(list_date[i],pulse[i],pressupper[i],presslower[i],oxi[i],pulse2[i])
-        time.sleep(30)
+        #push_data(list_date[i],pulse[i],pressupper[i],presslower[i],oxi[i],pulse2[i])
+        push_data(list_date[i],k,k+1,k+2,k+3,k+4)
+        time.sleep(10)
     

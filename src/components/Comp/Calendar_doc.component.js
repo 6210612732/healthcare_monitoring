@@ -157,24 +157,8 @@ function Calendar_doc() {
       <div  className="d-flex align-items-center justify-content-center text-center not-found-container my-5 w-100"  >
         
         
-        <Calendar onChange={(e) => showLog(e)} value={date}
-           tileClassName={({date})=>{
-            let day = date.getDate()
-            let month = date.getMonth()+1
-            if(date.getMonth()<10){
-              month = '0'+month 
-            }
-            if(date.getDate()<10){
-              day = '0'+day 
-            }
-            const realDate = date.getFullYear()+'-'+month+'-'+day
-            for(let i = 0;i<d_ls.length;i++){
-              if(d_ls[i].appoint[0].date == realDate){
-                return 'calendar_mark' 
-              }
-            }
-           }
-           }
+        <Calendar 
+        
          />
 
           {daa()}
