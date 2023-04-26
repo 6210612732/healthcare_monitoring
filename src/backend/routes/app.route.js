@@ -9,6 +9,7 @@ let AppointmentSchema = require('../models/Appointment')
 
 // authen
 router.route('/authen').post((req, res) => {
+    console.log("ok login")
     const rreq = req.body
     doctorSchema.findOne({ email: req.body.email}, (error, data)=> {
         if(error) {

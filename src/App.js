@@ -27,6 +27,7 @@ import Info_patient from './components/pages/patient/Info_patient';
 import Appointment_patient from './components/pages/patient/Appointment_patient';
 
 import Abc from './Abc';
+import Abcd from './Abcd';
 import Logout from './components/pages/Logout';
 import { useCookies,Cookies  } from 'react-cookie';
 import Template_layout from './components/pages/Template_layout';
@@ -34,7 +35,7 @@ import './scss/style.scss'
 import socketIO from 'socket.io-client';
 
 //require('dotenv').config();
-const socket = socketIO.connect("http://localhost:8084");
+const socket = socketIO.connect("https://2c4d-2001-19f0-5-18ac-7cda-bdfc-e130-268b.ngrok-free.app");
 
 function App() {
   const cookies = new Cookies();
@@ -50,7 +51,7 @@ function App() {
             <Col >
               <div className="wrapper">
                 <Routes>
-                  <Route exact path="/" element={<Abc/>} />
+                  <Route exact path="/" element={<Abcd/>} />
                   <Route path="/demo" element={<Cards/>} />
                   <Route path="/login" element={<Login/>} />
                   <Route path="/abc" element={<Abc/>} />

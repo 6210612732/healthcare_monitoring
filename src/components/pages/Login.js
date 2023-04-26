@@ -13,18 +13,30 @@ import {
 from 'mdb-react-ui-kit';
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { useCookies } from 'react-cookie';
+import { useCookies,Cookies  } from 'react-cookie';
+import {  useEffect } from "react";
 
 function Login() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [cookies, setCookie] = useCookies(['id','person']);
+    const cookies22 = new Cookies();
+    const cc = cookies22.get('person')
     function tt(nid) {
       setCookie('id', nid, { path: '/' });
     }
     function ff(person) {
       setCookie('person', person, { path: '/' });
     }
+    ////////////////////
+    useEffect(() => {
+      if(cc=="doctor"){
+        window.location.assign("/doctor/dashboard")
+      }
+      else if(cc=="doctor"){
+        window.location.assign("/patient/dashboard")
+      }
+    },[]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -33,7 +45,7 @@ function Login() {
             password: pass,   
         };
 
-        axios.post('http://localhost:8082/api/app/authen',PObject).then(res => {
+        axios.post('https://8c90-223-24-93-202.ngrok-free.app/api/app/authen',PObject).then(res => {
         console.log(res.data)
 
         if(res.data.status == "login success"){
