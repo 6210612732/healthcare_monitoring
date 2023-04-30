@@ -61,6 +61,7 @@ router.route('/monitor_doctor/:d_id').get( async (req, res) => {
                 if(data3){ temp_ls[i].device_token = data3.device_token }
                 else{ temp_ls.splice(i, 1);    i--;   }
             }
+            //console.log(temp_ls)
             res.json(temp_ls);
 })
 

@@ -28,11 +28,11 @@ router.route('/authen').post((req, res) => {
                             //console.log(req.body.password + "  asdsd  " + data.password);
                             const result = bcrypt.compareSync(req.body.password, data.password );
                             if(result == true){
-                                console.log("login success")
+                                //console.log("login success")
                                 res.json({status: "login success", id: data._id, person: "patient"});
                             }
                             else{
-                                console.log("password incorrect");
+                                //console.log("password incorrect");
                                 res.json({status: "email or password incorrect"});
                             }
                         }
@@ -42,12 +42,12 @@ router.route('/authen').post((req, res) => {
                 //console.log(req.body.password + "  asdsd  " + data.password);
                 const result = bcrypt.compareSync(req.body.password, data.password );
                 if(result == true){
-                    console.log("login success")
+                    //console.log("login success")
                     res.json({status: "login success", id: data._id, person: "doctor"});
                     return 0;
                 }
                 else{
-                    console.log("password incorrect");
+                    //console.log("password incorrect");
                     res.json({status: "email or password incorrect"});
                     return 0;
                 }
@@ -86,7 +86,7 @@ router.route('/make_appointment').post( async (req, res, next) =>
         })
     }
     else{
-        console.log("fail ap");
+        //console.log("fail ap");
         res.json("That time has already appoint");
     }
 })
@@ -94,7 +94,7 @@ router.route('/make_appointment').post( async (req, res, next) =>
 
 // Read patient 
 router.route('/').get((req, res) => {
-    console.log("sda");
+    //console.log("sda");
     doctorSchema.find((error,data) => {
         if(error) {
             return next(error);

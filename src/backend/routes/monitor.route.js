@@ -18,8 +18,8 @@ router.route('/sniff-monitor').post((req, res, next) => {
             return  next(error);
         } else {
              socket.emit('all_device',"update_"+JSON.stringify( data._id));
-            //console.log(JSON.stringify( data._id));
-            //res.json(data);
+            console.log(JSON.stringify( data._id));
+            res.json(data);
         }
     })
 })
@@ -58,7 +58,7 @@ router.route('/update-monitor/:id').put((req, res, next) => {
             console.log(error);
         } else {
             res.json(data);
-            console.log('Student updated successfully');
+            //console.log('Student updated successfully');
         }
     })
 })
@@ -83,7 +83,7 @@ router.route('/mini_monitor/:token/:device').get( async (req, res) => {
     const data = await monitorSchema.find(filter2).lean();
     let temp_ls = data;
     let d_data = []
-    console.log(temp_ls)
+    //console.log(data)
     res.json(data)
     /*
     if(req.params.device == "oxi"){

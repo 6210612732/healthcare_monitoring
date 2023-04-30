@@ -51,7 +51,7 @@ client.publish("mnt/" + uid, payload='ready', qos=1)
 def push_data(date_time,pulse,pressupper,presslower,oxi,pulse2):
     hh = datetime.datetime.now()
     #print(hh.strftime("%H")+":"+hh.strftime("%M"))
-    x = {"device_token":"ooo1-ooo1","date":str(date_time[0]),"time":str(hh.strftime("%H")+":"+hh.strftime("%M")),"Oximeter": [{"SAT": str(oxi),"PUL": str(pulse2),}],}
+    x = {"device_token":"ooo1-ooo1","date":str(date_time[0]),"time":str(hh.strftime("%H")+":"+hh.strftime("%M")),"BloodPress": [{"SYS": str(pressupper),"DIA": str(presslower),"PUL": str(pulse),}],}
     y = json.dumps(x)
     
     client.publish("panIot/", payload=y, qos=1)
@@ -61,11 +61,11 @@ def push_data(date_time,pulse,pressupper,presslower,oxi,pulse2):
 #client.loop_forever()
 
 # sudo data
-pulse = [150,130,148,122]
-pulse2 = [104,102,103,100]
-pressupper = [130,112,125,140]
-presslower = [95,76,87,90]
-oxi = [99,96,100,98]
+pulse = [98,110,90,95]
+pulse2 = [108,102,103,100]
+pressupper = [95,86,99,105]
+presslower = [72,69,73,75]
+oxi = [100,98,97,98]
 list_date =  [["2023-04-04","20:25"],["2023-04-04","20:27"],["2023-04-04","20:29"],["2023-04-04","20:31"]]
 
 
@@ -81,5 +81,5 @@ while(True):
         #date_time = str(dt).split()
         push_data(list_date[i],pulse[i],pressupper[i],presslower[i],oxi[i],pulse2[i])
         #push_data(list_date[i],k,k+1,k+2,k+3,k+4)
-        time.sleep(15)
+        time.sleep(10)
     

@@ -69,7 +69,7 @@ const DashSum = () => {
             <div className='pb-3' >
             Careful{' '}
               <span className="fs-6 fw-normal">
-                ({sum_static.normal})
+                ({sum_static.careful})
               </span>
               <br></br>
               </div>
@@ -88,7 +88,7 @@ const DashSum = () => {
             <div className='pb-3' >
               Normal{' '}
               <span className="fs-6 fw-normal">
-                ({sum_static.careful})
+                ({sum_static.normal})
               </span>
               <br></br>
               </div>

@@ -21,20 +21,22 @@ function ChartOxi({token}){
   let temp = []
   let b = 0
   function clean_data(item){
-
+    
     for(let i=0;i<item.length;i++){
       setdata(0)
           if('Oximeter' in item[i]){
               //console.log(item[i].Oximeter[0].SAT)
+             if(item[i].Oximeter.length != 0 ){
               temp=data; temp.push({date:item[i].date,time:item[i].time,oxi:item[i].Oximeter[0].SAT})
               setdata(temp); 
+            }
           }
       }
   
       const data_2 = data.reverse()
       seta(data_2[0].oxi)
       settime(data_2[0].time)
-     //console.log(a)
+      
   }
 
   useEffect(() => {
@@ -62,7 +64,7 @@ function ChartOxi({token}){
     labels: [time],
     datasets: [
       {
-        label: "%",
+        label: a+"%",
         backgroundColor: "#EC932F",
         borderColor: "rgba(255,99,132,1)",
         borderWidth: 1,

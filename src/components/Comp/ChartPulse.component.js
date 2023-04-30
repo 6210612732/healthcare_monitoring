@@ -39,13 +39,17 @@ function ChartPulse({token}){
     setcount(0)
         if('BloodPress' in item[i]){
             //console.log(item[i].Oximeter[0].SAT)
+            if(item[i].BloodPress.length != 0 ){
             temp=data; temp.push({date:item[i].date,time:item[i].time,pulse:item[i].BloodPress[0].PUL})
             setdata(temp);  const dd = count; setcount(dd+1)
+            }
             //if(count>=1){  break  }
         }
         else if('Oximeter' in item[i]){
+          if(item[i].Oximeter.length != 0 ){
           temp=data; temp.push({date:item[i].date,time:item[i].time,pulse:item[i].Oximeter[0].PUL})
             setdata(temp);  const dd = count; setcount(dd+1)
+          }
             //if(count>=1){  break  }
         } 
     }

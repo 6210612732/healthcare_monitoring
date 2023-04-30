@@ -35,7 +35,7 @@ import './scss/style.scss'
 import socketIO from 'socket.io-client';
 
 //require('dotenv').config();
-const socket = socketIO.connect("https://2c4d-2001-19f0-5-18ac-7cda-bdfc-e130-268b.ngrok-free.app");
+const socket = socketIO.connect("http://localhost:8084");
 
 function App() {
   const cookies = new Cookies();

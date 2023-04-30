@@ -45,7 +45,7 @@ function Login() {
             password: pass,   
         };
 
-        axios.post('https://8c90-223-24-93-202.ngrok-free.app/api/app/authen',PObject).then(res => {
+        axios.post('http://localhost:8082/api/app/authen',PObject).then(res => {
         console.log(res.data)
 
         if(res.data.status == "login success"){
