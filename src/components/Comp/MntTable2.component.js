@@ -140,7 +140,7 @@ const MntTable = ({socket}) => {
           <ChartOxi token={device_ls[index].device_token} socket = {socket}/>
         </CTableDataCell>
         <CTableDataCell className="text-center">
-          <CheckStatus token={device_ls[index].device_token} socket = {socket}/>
+          <CheckStatus token={device_ls[index].device_token} ind={index} socket = {socket}/>
         </CTableDataCell>
       </CTableRow>
         )
@@ -166,7 +166,7 @@ const MntTable = ({socket}) => {
           <ChartOxi token={device_ls[index].device_token}/>
         </CTableDataCell>
         <CTableDataCell className="text-center">
-          <CheckStatus token={device_ls[index].device_token}/>
+          <CheckStatus token={device_ls[index].device_token} ind={index}/>
         </CTableDataCell>
       </CTableRow>
       )

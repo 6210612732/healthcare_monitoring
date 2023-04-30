@@ -56,7 +56,7 @@ function CharPressure({token}){
                   {upper:data_2[0].upper,lower:data_2[0].lower, date:data_2[0].date, time:data_2[0].time },
                   ]
     //setdata(data3)   
-    console.log(data_2)
+    //console.log(data_2)
      
       set_upper([data3[0].upper,data3[1].upper,data3[2].upper,data3[3].upper]);
       set_lower([data3[0].lower,data3[1].lower,data3[2].lower,data3[3].lower]);

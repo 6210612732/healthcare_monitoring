@@ -39,13 +39,17 @@ function ChartPulse({token}){
     setcount(0)
         if('BloodPress' in item[i]){
             //console.log(item[i].Oximeter[0].SAT)
+            if(item[i].BloodPress.length != 0 ){
             temp=data; temp.push({date:item[i].date,time:item[i].time,pulse:item[i].BloodPress[0].PUL})
             setdata(temp);  const dd = count; setcount(dd+1)
+            }
             //if(count>=1){  break  }
         }
-        else if('Oximeter' in item[i]){
+        if('Oximeter' in item[i]){
+          if(item[i].Oximeter.length != 0 ){
           temp=data; temp.push({date:item[i].date,time:item[i].time,pulse:item[i].Oximeter[0].PUL})
             setdata(temp);  const dd = count; setcount(dd+1)
+          }
             //if(count>=1){  break  }
         } 
     }
@@ -63,7 +67,7 @@ function ChartPulse({token}){
                   {pulse:data_2[0].pulse, date:data_2[0].date, time:data_2[0].time },
                   ]
     //setdata(data3)   
-    //console.log(data3)
+    console.log(data_2)
      
       set_pulse([data3[0].pulse,data3[1].pulse,data3[2].pulse,data3[3].pulse]);
       set_time([data3[0].time,data3[1].time,data3[2].time,data3[3].time]);

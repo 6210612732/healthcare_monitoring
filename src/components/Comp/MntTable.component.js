@@ -71,7 +71,7 @@ const MntTable = () => {
                           <ChartOxi token={user_data[index].device_token}/>
                         </CTableDataCell>
                         <CTableDataCell className="text-center">
-                          <CheckStatus token={user_data[index].device_token} item={user_data[index]}/>
+                          <CheckStatus token={user_data[index].device_token} ind={index} item={user_data[index]}/>
                         </CTableDataCell>
                     </CTableRow>
     )}
@@ -97,7 +97,7 @@ const MntTable = () => {
                           <ChartOxi token={user_data[index].device_token}/>
                         </CTableDataCell>
                         <CTableDataCell className="text-center">
-                          <CheckStatus token={user_data[index].device_token} item={user_data[index]}/>
+                          <CheckStatus token={user_data[index].device_token} ind={index} item={user_data[index]}/>
                         </CTableDataCell>
                       </CTableRow>
       )}
@@ -123,7 +123,7 @@ const MntTable = () => {
                           <ChartOxi token={user_data[index].device_token}/>
                         </CTableDataCell>
                         <CTableDataCell className="text-center">
-                          <CheckStatus token={user_data[index].device_token} item={user_data[index]}/>
+                          <CheckStatus token={user_data[index].device_token} ind={index} item={user_data[index]}/>
                         </CTableDataCell>
                         </CTableRow>
         )}

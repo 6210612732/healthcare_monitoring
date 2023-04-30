@@ -61,8 +61,8 @@ def push_data(date_time,pulse,pressupper,presslower,oxi,pulse2):
 #client.loop_forever()
 
 # sudo data
-pulse = [98,110,90,95]
-pulse2 = [108,102,103,100]
+pulse = [166,188,175,188]
+pulse2 = [166,102,103,100]
 pressupper = [95,86,99,105]
 presslower = [72,69,73,75]
 oxi = [100,98,97,98]

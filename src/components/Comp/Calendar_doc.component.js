@@ -21,8 +21,8 @@ function Calendar_doc() {
   const [cc, setcc] = useState(2);
   const [user_data, setuser_data] = useState([]);
   let dev_temp = []
-   
-  
+
+
   function re(){
     axios.get('http://localhost:8082/api/appointment/doc_schedule/'+uid).then(res => {
     setd_ls(res.data)
@@ -90,6 +90,7 @@ function Calendar_doc() {
   }
 
 
+
   function print_bar(session){
     if(session=="session1"){
       const found = d_ls.find(element => (element.appoint[0].date === datee.appoint[0].date && element.appoint[0].session=="session1"))
@@ -117,7 +118,7 @@ function Calendar_doc() {
     }
     else if(session=="session5"){
       const found = d_ls.find(element => (element.appoint[0].date === datee.appoint[0].date && element.appoint[0].session=="session5"))
-      if(found){ return ( <div classname="my-3 mt-5"> session 5 (15:00 - 16:00) : {found.p_uname}  | {found.p_urname} 
+      if(found){ return ( <div classname="my-3 mt-5"> session 5 (15:00 - 16:00) : {found.p_uname}  | {found.p_urname}
       <Button variant="danger" className='mx-3 h-1' size="sm" onClick={()=>{del(found._id)}}> X </Button></div>) }
       else{ return ( <div classname="my-3 mt-5"> session 5 (15:00 - 16:00) :  --- </div>) }
     }
@@ -158,8 +159,24 @@ function Calendar_doc() {
       <div  className="d-flex align-items-center justify-content-center text-center not-found-container my-5 w-100"  >
         
         
-        <Calendar 
-        
+        <Calendar onChange={(e) => showLog(e)} value={date}
+           tileClassName={({date})=>{
+            let day = date.getDate()
+            let month = date.getMonth()+1
+            if(date.getMonth()<10){
+              month = '0'+month 
+            }
+            if(date.getDate()<10){
+              day = '0'+day 
+            }
+            const realDate = date.getFullYear()+'-'+month+'-'+day
+            for(let i = 0;i<d_ls.length;i++){
+              if(d_ls[i].appoint[0].date == realDate){
+                return 'calendar_mark' 
+              }
+            }
+           }
+           }
          />
 
           {daa()}
