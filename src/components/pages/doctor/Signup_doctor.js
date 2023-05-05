@@ -103,9 +103,9 @@ export default class Signup extends Component {
             </MDBCol>
             <MDBCol col='6' className="mb-5">
               <div className="d-flex flex-column ms-5">
-                <div className="text-center">
-                  <img src={logo}
-                    style={{width: '185px'}} alt="logo" />
+              <div className="text-center">
+                  <img src={require ("../../../assets/pic/logo_r.png")} height={130}
+                    alt="logo" />
                   <h4 className="mt-5 mb-5 pb-1">Doctor  Sign up</h4>
                 </div>
                 <Form onSubmit={this.onSubmit}>

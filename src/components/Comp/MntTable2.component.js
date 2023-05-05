@@ -91,6 +91,29 @@ const MntTable = ({socket}) => {
   })
   }
 
+  function change_active(pp){
+    Swal.fire({
+      title: 'change main device : ' + pp,
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        console.log("sasdad")
+        const PObject = { device_token: pp, p_id: uid}
+        axios.post('http://localhost:8082/api/pair/change_pair',PObject).then(res => {
+        if(res.data.message == "change successfully"){ 
+          pull_device()
+          Swal.fire("change successfully", '', 'success')  }}
+      )} else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      } pull_device(); setcc(10);
+  })
+  }
+  
+
   function check(){
     if(message!=re_message){
       setre_message(setmessage)
@@ -125,7 +148,7 @@ const MntTable = ({socket}) => {
         </CTableDataCell>
         <CTableDataCell className="text-center">
           <div >
-            <span>{device_ls[index].device_token}</span><p>active</p>
+            <span>{device_ls[index].device_token}</span><p>actived</p>
           </div>
           <div className="small text-medium-emphasis"></div>
         </CTableDataCell>
@@ -152,7 +175,7 @@ const MntTable = ({socket}) => {
         </CTableDataCell>
         <CTableDataCell className="text-center">
           <div >
-            <span>{device_ls[index].device_token}</span>
+            <span>{device_ls[index].device_token}</span><p><a  className="c_hover" onClick={() => change_active(device_ls[index].device_token)} >select</a></p>
           </div>
           <div className="small text-medium-emphasis"></div>
         </CTableDataCell>
@@ -182,7 +205,7 @@ const MntTable = ({socket}) => {
               <Form.Control
                 type="search"
                 placeholder="device token"
-                className="me-2"
+                className="me-2 px-5"
                 aria-label="Search"
                 onChange={e => settoken(e.target.value)}
               />

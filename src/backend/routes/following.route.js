@@ -132,6 +132,20 @@ router.route('/search_request').post( async (req, res) => {
             res.json(temp_ls);
 })
 
+// admin search doctor 
+router.route('/search_request2').post( async (req, res) => {
+    //console.log(req.body.mode + " gg " + req.body.search)
+    let filter2 = {}
+    if(req.body.mode == "rna") {
+        filter2 = { "detail.name_sur":{ $regex: '.*' +  req.body.search + '.*' }}}      
+    else if(req.body.mode == "una"){
+        filter2 = { username:{ $regex: '.*' +  req.body.search + '.*' }}}
+    
+    const data = await doctorSchema.find(filter2).sort({_id: -1}).lean();
+    let temp_ls = data;
+    res.json(temp_ls);
+})
+
 // Read patient 
 router.route('/').get((req, res) => {
     followingSchema.find((error,data) => {

@@ -67,6 +67,30 @@ router.route('/delete_pair').post((req, res) => {
     })
 });
 
+
+router.route('/change_pair').post((req, res) => {
+    const filter = { p_id:req.body.p_id, device_token: req.body.device_token }
+    const filter2 = { p_id:req.body.p_id, d_status: "1" }
+    const update = { d_status: "1"}
+    const update2 = { d_status: "0"}
+    pair_deviceSchema.findOneAndUpdate(filter,update , (error,data) => {
+        if(error) {
+            return next(error);
+            console.log(error);
+        } else {
+        }
+    })
+    pair_deviceSchema.findOneAndUpdate(filter2,update2 , (error,data) => {
+        if(error) {
+            return next(error);
+        } else {
+            res.json(data);
+        }
+    })
+    
+});
+
+
 // Read all
 router.route('/me/:id').get((req, res) => {
     const filter = { p_id:req.params.id }

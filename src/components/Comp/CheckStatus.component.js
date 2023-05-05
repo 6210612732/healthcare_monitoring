@@ -59,16 +59,16 @@ function CheckStatus({token,ind}){
       if(90>=parseInt(oxi) && parseInt(oxi) > 5){
         setv(1)
       }
-      else if(5 < parseInt(pulse1) && parseInt(pulse1) > 150){
+      else if(5 < parseInt(pulse1) && parseInt(pulse1) > 130){
         setv(2)
       }
-      else if(5 < parseInt(pulse2) && parseInt(pulse2) > 150){
+      else if(5 < parseInt(pulse1) && parseInt(pulse1) < 60){
         setv(3)
       }
-      else if(5 < parseInt(upper) && parseInt(upper) > 160){
+      else if(5 < parseInt(upper) && parseInt(upper) > 140 && 5 < parseInt(lower) && parseInt(lower) > 90 ){
         setv(4)
       }
-      else if(5 < parseInt(lower) && parseInt(lower) > 100){
+      else if(5 < parseInt(upper) && parseInt(upper) < 90 && 5 < parseInt(lower) && parseInt(lower) < 60 ){
         setv(5)
       }
       else{
@@ -104,11 +104,11 @@ function CheckStatus({token,ind}){
 function status(){
   if(v!=0){
     
-    if(v == 1){ alert("alert -> index : " + (ind+1) + " Oxi low");  return (  <div> Oxi low</div> ) }
-    else if(v == 2){ alert("alert -> index : " + (ind+1) + " heart rate in excess"); return (  <div>heart rate in excess</div> ) }
-    else if(v == 3){ alert("alert -> index : " + (ind+1) + " heart rate in excess"); return (  <div>heart rate in excess</div> ) }
-    else if(v == 4){ alert("alert -> index : " + (ind+1) + " blood pressure too high"); return (  <div>blood pressure too high</div> ) }
-    else if(v == 5){ alert("alert -> index : " + (ind+1) + " blood pressure too high"); return (  <div>blood pressure too high</div> ) }
+    if(v == 1){ alert("alert -> index : " + (ind+1) + " Oxi Low");  return (  <div> Oxi low</div> ) }
+    else if(v == 2){ alert("alert -> index : " + (ind+1) + " Hight Heart Rate"); return (  <div>Hight Heart Rate</div> ) }
+    else if(v == 3){ alert("alert -> index : " + (ind+1) + " Low Heart Rate"); return (  <div>Low Heart Rate</div> ) }
+    else if(v == 4){ alert("alert -> index : " + (ind+1) + " High Blood Pressure"); return (  <div>High Blood Pressure</div> ) }
+    else if(v == 5){ alert("alert -> index : " + (ind+1) + " Low Blood Pressure"); return (  <div>Low Blood Pressure</div> ) }
   }
   else{   return (<div>Normal</div> )}
 }

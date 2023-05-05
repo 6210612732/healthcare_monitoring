@@ -135,8 +135,8 @@ export default class Signup extends Component {
               <div className="d-flex flex-column ms-5">
 
                 <div className="text-center">
-                  <img src={logo}
-                    style={{width: '185px'}} alt="logo" />
+                  <img src={require ("../../../assets/pic/logo_r.png")} height={130}
+                    alt="logo" />
                   <h4 className="mt-5 mb-5 pb-1">Patient  Sign up</h4>
                 </div>
                 <Form onSubmit={this.onSubmit}>

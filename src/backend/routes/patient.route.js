@@ -75,13 +75,12 @@ router.route('/update-patient/:id').put((req, res, next) => {
 })
 
 // Delete patient
-router.route('/delete-patient/:id').delete((req, res, next) => {
-    patientSchema.findByIdAndRemove(req.params.id, (error,data) => {
+router.route('/delete_patient').post((req, res, next) => {
+    patientSchema.findByIdAndRemove(req.body.p_id, (error,data) => {
         if (error) {
             return next(error);
         } else {
             res.status(200).json({
-                
                 msg: data
             })
         }

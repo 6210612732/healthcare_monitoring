@@ -68,8 +68,8 @@ router.route('/update-doctor/:id').put((req, res, next) => {
 })
 
 // Delete patient
-router.route('/delete-doctor/:id').delete((req, res, next) => {
-    doctorSchema.findByIdAndRemove(req.params.id, (error,data) => {
+router.route('/delete_doctor').post((req, res, next) => {
+    doctorSchema.findByIdAndRemove(req.body.d_id, (error,data) => {
         if (error) {
             return next(error);
         } else {

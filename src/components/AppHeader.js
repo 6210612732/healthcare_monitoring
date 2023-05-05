@@ -23,6 +23,19 @@ const AppHeader = () => {
   const sidebarShow = useSelector((state) => state.sidebarShow)
   const cookies = new Cookies();
   const person = cookies.get('person')
+  const urname = cookies.get('urname')
+  const time_login = cookies.get('time_login')
+  const active_time = calculateTimeDifference(time_login)
+
+  function calculateTimeDifference(time1) {
+    const time2 = new Date().getTime()
+    const diff = time2 - time1;
+    const hours = Math.floor(diff / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    //console.log(hours + " hours " + minutes + " minutes " + seconds + " seconds")
+    return hours + " hours " + minutes + " minutes " + seconds + " seconds";
+  }
 
   return (
     <CHeader position="sticky" className="mb-4 w-auto">
@@ -35,7 +48,8 @@ const AppHeader = () => {
         </CHeaderToggler>
         
         <CHeaderNav className="ms-3">
-        <h5>{person}</h5>
+        <p className='mt-2 mx-3 text-success'>active : {active_time}</p>
+        <h5>{person} | {urname}</h5>
         </CHeaderNav>
       </CContainer>
       <CHeaderDivider />

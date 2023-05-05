@@ -25,6 +25,10 @@ import Chatlist_patient from './components/pages/patient/Chatlist_patient';
 import Chat_patient from './components/pages/patient/Chat_patient';
 import Info_patient from './components/pages/patient/Info_patient';
 import Appointment_patient from './components/pages/patient/Appointment_patient';
+// admin
+import Dashboard_admin from './components/pages/admin/Dashboard_admin';
+import Dashboard_admin2 from './components/pages/admin/Dashboard_admin2';
+
 
 import Abc from './Abc';
 import Abcd from './Abcd';
@@ -41,7 +45,9 @@ function App() {
   const cookies = new Cookies();
   const uid = cookies.get('id')
   const person = cookies.get('person')
-  console.log("id = " + uid + " | person : " + person)
+  const urname = cookies.get('urname')
+  const time_login = cookies.get('time_login')
+  console.log("id = " + uid + " | person : " + person + " | username : " + urname + " | time_login : " + time_login)
   return (
     <Router>
       <div className="App">
@@ -74,6 +80,10 @@ function App() {
                   <Route path="/patient/appointment" element={<Appointment_patient/>} />
                   
                   
+                  <Route path="/admin/dashboard" element={<Dashboard_admin />} />
+                  <Route path="/admin/dashboard2" element={<Dashboard_admin2 />} />
+                  
+
                 </Routes>
               </div>
             </Col>

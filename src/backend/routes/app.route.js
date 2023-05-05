@@ -11,6 +11,10 @@ let AppointmentSchema = require('../models/Appointment')
 router.route('/authen').post((req, res) => {
     console.log("ok login")
     const rreq = req.body
+    if(req.body.email == "healthcare@monitoring.com" && req.body.password == "Admin123"){
+        res.json({status: "login success", id: "xxx0-xxx0", person: "admin",urname:"admin-001"});
+    }
+    else{
     doctorSchema.findOne({ email: req.body.email}, (error, data)=> {
         if(error) {
             return next(error);
@@ -29,7 +33,7 @@ router.route('/authen').post((req, res) => {
                             const result = bcrypt.compareSync(req.body.password, data.password );
                             if(result == true){
                                 //console.log("login success")
-                                res.json({status: "login success", id: data._id, person: "patient"});
+                                res.json({status: "login success", id: data._id, person: "patient",urname:data.username});
                             }
                             else{
                                 //console.log("password incorrect");
@@ -43,7 +47,7 @@ router.route('/authen').post((req, res) => {
                 const result = bcrypt.compareSync(req.body.password, data.password );
                 if(result == true){
                     //console.log("login success")
-                    res.json({status: "login success", id: data._id, person: "doctor"});
+                    res.json({status: "login success", id: data._id, person: "doctor",urname:data.username});
                     return 0;
                 }
                 else{
@@ -54,6 +58,7 @@ router.route('/authen').post((req, res) => {
             }
         }
     })
+    }
 })
 
 // make appointment

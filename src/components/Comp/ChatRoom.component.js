@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'
 import { useCookies,Cookies  } from 'react-cookie';
@@ -20,8 +20,9 @@ const ChatRoom = ({socket}) => {
   const [p_name, setp_name] = useState("");
   const [p_realname, setp_realname] = useState("");
   const [d_uname, setd_uname] = useState("");
-
+  const messagesEndRef = useRef(null);
   useEffect(() => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     socket.on('messageResponse', (data) => setmessage(data));
     check()
     if(cc>0){
@@ -122,10 +123,12 @@ const ChatRoom = ({socket}) => {
                         })()}
                       </div>
                        ))}
+                       
                         <div className="card-footer text-muted d-flex justify-content-start align-items-center p-3">            
                           <textarea className="form-control" onChange={(e) => my_setmess(e)} id="area" rows="2"></textarea>
                           <Button className='py-4 px-3  mx-2 'variant="dark" onClick={(()=>sendmess())}>send</Button>
                         </div>
+                        <div ref={messagesEndRef} />
                       </ul>
                     </div>
                   </div>

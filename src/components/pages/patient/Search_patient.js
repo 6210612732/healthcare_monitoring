@@ -100,7 +100,7 @@ const Search_patient = () => {
                       <CTableDataCell className="text-center">
                         <div>{item.doc_uname}</div>
                         <div className="small text-medium-emphasis">
-                          <span>aa</span> | age : ss
+                          
                         </div>
                       </CTableDataCell>
                       <CTableDataCell className="text-center">
