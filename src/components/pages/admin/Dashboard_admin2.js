@@ -89,7 +89,7 @@ const Dashboard_admin = () => {
                             <Button key={index} variant="success" onClick={()=>{window.location.assign('pat_dashboard?cid='+item._id)}}>View</Button>
                             </CTableDataCell>
                             <CTableDataCell className="text-center">
-                            <Button key={index} variant="secondary" onClick={() => request_follow(item._id)}>View</Button>
+                            <Button key={index} variant="secondary" onClick={()=>{window.location.assign('pat_calendar?cid='+item._id)}}>View</Button>
                             </CTableDataCell>
                             <CTableDataCell className="text-center">
                             <div><Button key={index} variant="outline-danger" onClick={() => delete_patient(item._id)}>Delete</Button></div>

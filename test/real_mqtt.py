@@ -52,7 +52,7 @@ client.publish("mnt/" + uid, payload='ready', qos=1)
 def push_data(date_time,pulse,pressupper,presslower,oxi,pulse2):
     hh = datetime.datetime.now()
     #print(hh.strftime("%H")+":"+hh.strftime("%M"))
-    x = {"device_token":"aaa2-aaa2","date":str(date_time[0]),"time":str(hh.strftime("%H")+":"+hh.strftime("%M")),"BloodPress": [{"SYS": str(pressupper),"DIA": str(presslower),"PUL": str(pulse),}],"Oximeter": [{"SAT": str(oxi),"PUL": str(pulse2),}],}
+    x = {"device_token":"ssss","date":str(date_time[0]),"time":str(hh.strftime("%H")+":"+hh.strftime("%M")),"BloodPress": [{"SYS": str(pressupper),"DIA": str(presslower),"PUL": str(pulse),}],"Oximeter": [{"SAT": str(oxi),"PUL": str(pulse2),}],}
     y = json.dumps(x)
     
     client.publish("panIot/", payload=y, qos=1)
@@ -84,6 +84,6 @@ while(True):
         #push_data(list_date[i],k,k+1,k+2,k+3,k+4)
         #time.sleep(10)
         i = random.randint(1, 3)
-        time.sleep(i*60)
+        time.sleep(i*30)
     
     

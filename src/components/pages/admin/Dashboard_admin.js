@@ -11,6 +11,7 @@ import {
   CTableRow,
 } from '@coreui/react'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import { useCookies,Cookies  } from 'react-cookie';
 
 const Dashboard_admin = () => {
@@ -72,6 +73,29 @@ const Dashboard_admin = () => {
     })
   }
 
+  function generate_sign(){
+    // Generate a random token
+  const token = Math.random().toString(36).substr(2);
+
+  // Store the token and associate it with an expiration time on the server side
+  // You can use any server-side storage mechanism, such as a database or cache
+  // Here's an example using sessionStorage:
+  const expirationTime = new Date().getTime() + 5 * 60 * 1000; // 5 minutes from now
+  sessionStorage.setItem(token, expirationTime);
+
+  // Create the one-time use link with the token
+  const oneTimeLink = `http://localhost:8081/doctor/signup_doctor?token=${token}`;
+  Swal.fire({
+    title: 'Doctor Signup Link : ' + oneTimeLink,
+    showConfirmButton: false,
+    showDenyButton: false,
+    showCancelButton: true,
+    confirmButtonText: 'Save',
+    denyButtonText: `Don't save`,
+    cancelButtonText: 'Okay',
+  })
+  }
+
   function create_bar(index){
     let item = user_data[index]
           return (
@@ -89,7 +113,7 @@ const Dashboard_admin = () => {
                             <Button key={index} variant="success"  onClick={()=>{window.location.assign('doc_dashboard?cid='+item._id)}}>View</Button>
                             </CTableDataCell>
                             <CTableDataCell className="text-center">
-                            <Button key={index} variant="secondary" onClick={() => request_follow(item._id)}>View</Button>
+                            <Button key={index} variant="secondary"  onClick={()=>{window.location.assign('doc_calendar?cid='+item._id)}}>View</Button>
                             </CTableDataCell>
                             <CTableDataCell className="text-center">
                             <div><Button key={index} variant="outline-danger" onClick={() => delete_doctor(item._id)}>Delete</Button></div>
@@ -124,6 +148,9 @@ const Dashboard_admin = () => {
                   <option value="" >all</option>
                   <option value="una" >search with username</option>
                 </Form.Select>
+                <Button className='w-5' onClick={()=>generate_sign()}>
+                  Signup&nbsp;Doctor
+                </Button>
               </Form>
             </Col>
           </Row>

@@ -81,5 +81,5 @@ while(True):
         #date_time = str(dt).split()
         push_data(list_date[i],pulse[i],pressupper[i],presslower[i],oxi[i],pulse2[i])
         #push_data(list_date[i],k,k+1,k+2,k+3,k+4)
-        time.sleep(45)
+        time.sleep(30)
     

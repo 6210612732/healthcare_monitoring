@@ -2,10 +2,8 @@ let mongoose = require('mongoose'),
     app = require('express'),
     router = app.Router();
 const bcrypt = require('bcrypt');
-
+let axios = require('axios');
 let pair_deviceSchema = require('../models/Pair_device')
-
-
 
 
 router.route('/create_pair').post((req, res) => {
@@ -29,7 +27,28 @@ router.route('/create_pair').post((req, res) => {
                             return  next(error);
                         } else {
                             res.json({message: "add device success"});
-    
+                            const PObject = {
+                                device_token: req.body.device_token,
+                                date: "",
+                                time: "",
+                                BloodPress: [
+                                  {
+                                    SYS: "0",
+                                    DIA: "0",
+                                    PUL: "0"
+                                  }
+                                ],
+                                Oximeter: [
+                                  {
+                                    SAT: "0",
+                                    PUL: "0",
+                                  }
+                                ],
+                              };
+                            axios.post('http://localhost:8082/api/monitor/sniff-monitor',PObject);
+                            axios.post('http://localhost:8082/api/monitor/sniff-monitor',PObject);
+                            axios.post('http://localhost:8082/api/monitor/sniff-monitor',PObject);
+                            axios.post('http://localhost:8082/api/monitor/sniff-monitor',PObject);
                         }
                     }) }
                     else{

@@ -30,6 +30,8 @@ import Dashboard_admin from './components/pages/admin/Dashboard_admin';
 import Dashboard_admin2 from './components/pages/admin/Dashboard_admin2';
 import Doc_dashboard from './components/pages/admin/Admin_doc_dash';
 import Pat_dashboard from './components/pages/admin/Admin_pat_dash';
+import Doc_calendar from './components/pages/admin/Ad_Calendar_doc.component';
+import Pat_calendar from './components/pages/admin/Ad_Calendar_pat.component';
 
 import Abc from './Abc';
 import Abcd from './Abcd';
@@ -85,6 +87,8 @@ function App() {
                   <Route path="/admin/dashboard2" element={<Dashboard_admin2 />} />
                   <Route path="/admin/doc_dashboard" element={<Doc_dashboard />} />
                   <Route path="/admin/pat_dashboard" element={<Pat_dashboard />} />
+                  <Route path="/admin/doc_calendar" element={<Doc_calendar />} />
+                  <Route path="/admin/pat_calendar" element={<Pat_calendar />} />
                   
                   
                 </Routes>

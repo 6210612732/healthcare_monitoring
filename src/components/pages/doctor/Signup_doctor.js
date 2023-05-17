@@ -18,7 +18,7 @@ import Form from 'react-bootstrap/Form'
 import Swal from 'sweetalert2'
 
 export default class Signup extends Component {
-  
+
     constructor(props){
         super(props)
         this.state = {
@@ -84,7 +84,28 @@ export default class Signup extends Component {
         //console.log('student success create ');
     }
 
+    componentDidMount() {
+       // When the link is accessed, check if the token is valid and not expired
+ const urlParams = new URLSearchParams(window.location.search);
+ const tokenFromUrl = urlParams.get('token');
+ const expirationFromStorage = sessionStorage.getItem(tokenFromUrl);
+ if (expirationFromStorage && new Date().getTime() < expirationFromStorage) {
+   // The token is valid and not expired, do something here
+   // For example, remove the token from server-side storage to mark it as used
+   sessionStorage.removeItem(tokenFromUrl);
+ } else {
+   window.location.assign('/')
+ }
+    }
+
+
+
+
+
   render() {
+
+     
+
     return (
         <MDBContainer className={`my-5 ${styles.gradient_form}`}>
             <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '5000px'}}>
@@ -126,3 +147,4 @@ export default class Signup extends Component {
   }
 }
 //className="mb-0 w-100 styles.gradient-custom-2" 
+

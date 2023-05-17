@@ -16,10 +16,10 @@ const DashSum = () => {
   const current_url = new URL(window.location.href)
   const search_params = current_url.searchParams;
   const uid = search_params.get('cid');
+  const [dname, setdname] = useState("");
   //const uid = cookies.get('id')
   const [user_data, setuser_data] = useState([]);
   const [sum_static, setsum_static] = useState([]);
-  const [dname, setdname] = useState("");
 
   function count_sum(item){
     let all = item.length; let careful = 0; let normal = 0;
