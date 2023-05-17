@@ -8,7 +8,7 @@ let patientSchema = require('../models/Patient')
 let appointSchema = require('../models/Appointment')
 
 
-// create patient
+// notuse 
 router.route('/make_appoint').get((req, res, next) => {
     const temp = {
         p_id: "64402117b0cb49a81e4ccac1",

@@ -28,7 +28,8 @@ import Appointment_patient from './components/pages/patient/Appointment_patient'
 // admin
 import Dashboard_admin from './components/pages/admin/Dashboard_admin';
 import Dashboard_admin2 from './components/pages/admin/Dashboard_admin2';
-
+import Doc_dashboard from './components/pages/admin/Admin_doc_dash';
+import Pat_dashboard from './components/pages/admin/Admin_pat_dash';
 
 import Abc from './Abc';
 import Abcd from './Abcd';
@@ -82,8 +83,10 @@ function App() {
                   
                   <Route path="/admin/dashboard" element={<Dashboard_admin />} />
                   <Route path="/admin/dashboard2" element={<Dashboard_admin2 />} />
+                  <Route path="/admin/doc_dashboard" element={<Doc_dashboard />} />
+                  <Route path="/admin/pat_dashboard" element={<Pat_dashboard />} />
                   
-
+                  
                 </Routes>
               </div>
             </Col>

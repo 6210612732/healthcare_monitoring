@@ -86,13 +86,10 @@ const Dashboard_admin = () => {
                               </div>
                             </CTableDataCell>
                             <CTableDataCell className="text-center">
-                            <Button key={index} variant="success" onClick={() => request_follow(item._id)}>Request</Button>
+                            <Button key={index} variant="success" onClick={()=>{window.location.assign('pat_dashboard?cid='+item._id)}}>View</Button>
                             </CTableDataCell>
                             <CTableDataCell className="text-center">
-                            <Button key={index} variant="primary" onClick={() => request_follow(item._id)}>Chat</Button>
-                            </CTableDataCell>
-                            <CTableDataCell className="text-center">
-                            <Button key={index} variant="secondary" onClick={() => request_follow(item._id)}>Appointment</Button>
+                            <Button key={index} variant="secondary" onClick={() => request_follow(item._id)}>View</Button>
                             </CTableDataCell>
                             <CTableDataCell className="text-center">
                             <div><Button key={index} variant="outline-danger" onClick={() => delete_patient(item._id)}>Delete</Button></div>
@@ -140,8 +137,7 @@ const Dashboard_admin = () => {
                         #
                     </CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Patient</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">Request</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">Chat</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">Device</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Appointment</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Delete</CTableHeaderCell>
                   </CTableRow>

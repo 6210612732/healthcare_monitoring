@@ -77,7 +77,7 @@ router.route('/delete-monitor/:id').delete((req, res, next) => {
 })
 
 
-// mini oxy
+// mini monitor
 router.route('/mini_monitor/:token/:device').get( async (req, res) => {
     let filter2 = { device_token:req.params.token }
     const data = await monitorSchema.find(filter2).lean();

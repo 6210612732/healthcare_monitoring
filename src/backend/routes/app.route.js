@@ -96,6 +96,25 @@ router.route('/make_appointment').post( async (req, res, next) =>
     }
 })
 
+// read docname
+router.route('/docname/:d_id').get( async (req, res, next) => 
+{   
+    const filter = { _id:req.params.d_id}
+    const data2 = await doctorSchema.findOne({ _id:req.params.d_id }).lean();
+    //console.log(data)
+    res.json(data2)
+})
+
+// read patname
+router.route('/patname/:p_id').get( async (req, res, next) => 
+{   
+    const filter = { _id:req.params.p_id}
+    const data2 = await patientSchema.findOne({ _id:req.params.p_id }).lean();
+    //console.log(data)
+    res.json(data2)
+})
+
+
 
 // Read patient 
 router.route('/').get((req, res) => {
