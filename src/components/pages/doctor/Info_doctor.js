@@ -8,6 +8,7 @@ import { useCookies,Cookies  } from 'react-cookie';
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { Form } from 'react-bootstrap';
 import Appoint from '../../Comp/Appoint.component';
+import MntTable3 from '../../Comp/MntTable3.component';
 
 const url = require('url');
 function Info_doctor (){
@@ -180,10 +181,18 @@ function violent_select(){
             <div className='p-2 '>
             <Appoint className="float-right p-2" /></div>
             </div>
-      <MDBTable align='center' striped hover bordered className="my-2">
+            <div className="my-2 mb-5">
+              <h4 className="my-2 mb-3">All Device</h4>
+              <MntTable3 />
+              </div>
+            
+      <MDBTable align='center' striped hover bordered className="my-2 mb-5">
       {row_info()}
       </MDBTable>
-    
+
+      
+
+
             </div>
         <AppFooter />
       </div>

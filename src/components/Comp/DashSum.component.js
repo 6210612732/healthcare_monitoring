@@ -34,8 +34,18 @@ const DashSum = () => {
   }, []); // <- add the count variable here
 
   function doThis(aa){
-    
-    console.log( user_data)
+    if(aa==1){
+      window.location.assign("dashboard?see=all")
+    }
+    if(aa==2){
+      window.location.assign("dashboard?see=care")
+    }
+    if(aa==3){
+      window.location.assign("dashboard?see=nor")
+    }
+    if(aa==4){
+      window.location.assign("dashboard?see=new")
+    }
   }
 
   return (
@@ -106,7 +116,7 @@ const DashSum = () => {
           value={
             <>
             <div className='pb-3' >
-            Unsort{' '}
+            New{' '}
               <span className="fs-6 fw-normal">
                 ({sum_static.unrank})
               </span>

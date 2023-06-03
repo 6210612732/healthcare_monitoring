@@ -105,10 +105,10 @@ function status(){
   if(v!=0){
     
     if(v == 1){ alert("alert -> index : " + (ind+1) + " Oxi Low");  return (  <div> Oxi low</div> ) }
-    else if(v == 2){ alert("alert -> index : " + (ind+1) + " Hight Heart Rate"); return (  <div>Hight Heart Rate</div> ) }
-    else if(v == 3){ alert("alert -> index : " + (ind+1) + " Low Heart Rate"); return (  <div>Low Heart Rate</div> ) }
-    else if(v == 4){ alert("alert -> index : " + (ind+1) + " High Blood Pressure"); return (  <div>High Blood Pressure</div> ) }
-    else if(v == 5){ alert("alert -> index : " + (ind+1) + " Low Blood Pressure"); return (  <div>Low Blood Pressure</div> ) }
+    else if(v == 2){ alert("alert -> index : " + (ind+1) + " Hight Heart Rate"); return (  <div class="bg-warning"><strong>Hight Heart Rate</strong></div> ) }
+    else if(v == 3){ alert("alert -> index : " + (ind+1) + " Low Heart Rate"); return (  <div class="bg-warning"><strong>Low Heart Rate</strong></div> ) }
+    else if(v == 4){ alert("alert -> index : " + (ind+1) + " High Blood Pressure"); return (  <div class="bg-warning"><strong>High Blood Pressure</strong></div> ) }
+    else if(v == 5){ alert("alert -> index : " + (ind+1) + " Low Blood Pressure"); return (  <div class="bg-warning"><strong>Low Blood Pressure</strong></div> ) }
   }
   else{   return (<div>Normal</div> )}
 }

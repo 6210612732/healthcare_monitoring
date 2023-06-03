@@ -55,6 +55,7 @@ router.route('/monitor_doctor/:d_id').get( async (req, res) => {
                 temp_ls[i].pat_uname = data2.username
                 temp_ls[i].pat_rname = data2.detail[0].name_sur
                 temp_ls[i].pat_age = data2.detail[0].age
+                temp_ls[i].pat_kgcm = data2.detail[0].kg_cm
                 temp_ls[i].pat_id = data2._id
                 temp_ls[i].pat_violent = data2.violent
                 const data3 = await pairSchema.findOne({p_id:data2._id, d_status:"1"}).lean();

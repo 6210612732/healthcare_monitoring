@@ -62,11 +62,11 @@ def push_data(date_time,pulse,pressupper,presslower,oxi,pulse2):
 #client.loop_forever()
 
 # sudo data
-pulse = [180,122,108,130]
+pulse = [102,120,108,130]
 pulse2 = [104,102,103,100]
-pressupper = [155,108,109,110]
-presslower = [95,75,76,76]
-oxi = [50,96,97,98]
+pressupper = [107,108,109,110]
+presslower = [75,75,76,76]
+oxi = [95,96,97,98]
 list_date =  [["2023-04-04","20:25"],["2023-04-04","20:27"],["2023-04-04","20:29"],["2023-04-04","20:31"]]
 
 
@@ -80,9 +80,10 @@ while(True):
         client.loop_stop()
         #dt = datetime.now()
         #date_time = str(dt).split()
-        push_data(list_date[i],pulse[i],pressupper[i],presslower[i],oxi[i],pulse2[i])
+        push_data(list_date[i],random.randint(60, 130),random.randint(90, 140),random.randint(60, 90),random.randint(91,100),pulse2[i])
         #push_data(list_date[i],k,k+1,k+2,k+3,k+4)
         #time.sleep(10)
-        time.sleep(random.randint(1, 3)*60)
+        i = random.randint(1, 3)
+        time.sleep(i*30)
     
     
